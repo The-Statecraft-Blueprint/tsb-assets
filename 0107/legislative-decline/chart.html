@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Congress Is Passing Less and Less Law — The Statecraft Blueprint</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #eef0f5;
+      font-family: Georgia, 'Times New Roman', serif;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    .wrap { width: 100%; max-width: 820px; background: #eef0f5; padding: 36px 40px 28px; }
+    .eyebrow { font-size: 10px; letter-spacing: 0.18em; color: #a63232; text-transform: uppercase; margin-bottom: 12px; }
+    h2 { color: #2a2c4a; font-size: 20px; font-weight: normal; margin: 0 0 6px; line-height: 1.3; }
+    .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 28px; line-height: 1.5; }
+    .chart-wrap { position: relative; height: 340px; }
+    .callouts { display: flex; margin-top: 24px; border-top: 1px solid #d8dbe6; padding-top: 20px; }
+    .callout { flex: 1; padding-right: 20px; border-right: 1px solid #d8dbe6; }
+    .callout:last-child { border-right: none; }
+    .callout + .callout { padding-left: 20px; }
+    .callout-num { font-size: 26px; font-weight: bold; line-height: 1; letter-spacing: -0.02em; }
+    .callout-label { font-size: 11px; color: #8a8fa8; margin-top: 5px; line-height: 1.4; }
+    .source { margin-top: 16px; font-size: 10px; color: #8a8fa8; line-height: 1.5; border-top: 1px solid #d8dbe6; padding-top: 12px; }
+    .source a { color: #3d3f7c; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">The Statecraft Blueprint</div>
+    <h2>Congress Is Passing Less and Less Law</h2>
+    <p class="subtitle">
+      Public laws enacted per Congress, 91st–118th (1969–2024).
+      In 1969–70, Congress passed 695 public laws. In 2023–24, it passed 274.
+    </p>
+
+    <div class="chart-wrap">
+      <canvas id="chart"></canvas>
+    </div>
+
+    <div class="callouts">
+      <div class="callout">
+        <div class="callout-num" style="color:#3d3f7c">695</div>
+        <div class="callout-label">public laws enacted<br>91st Congress, 1969–70</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#a63232">274</div>
+        <div class="callout-label">public laws enacted<br>118th Congress, 2023–24</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#3d3f7c">−61%</div>
+        <div class="callout-label">decline in laws passed<br>over 55 years</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#a63232">1.7%</div>
+        <div class="callout-label">of bills introduced became<br>law in the 118th Congress</div>
+      </div>
+    </div>
+
+    <p class="source">
+      Source: Brookings Institution, Vital Statistics on Congress, Ch. 6 (1969–2024);
+      Senate Résumé of Congressional Activity.
+      Full data and methodology: <a href="sources.md">sources.md</a> &nbsp;|&nbsp;
+      Raw data: <a href="data.csv">data.csv</a>
+    </p>
+  </div>
+
+  <script>
+    const labels = [
+      '91st\n1969','92nd\n1971','93rd\n1973','94th\n1975','95th\n1977',
+      '96th\n1979','97th\n1981','98th\n1983','99th\n1985','100th\n1987',
+      '101st\n1989','102nd\n1991','103rd\n1993','104th\n1995','105th\n1997',
+      '106th\n1999','107th\n2001','108th\n2003','109th\n2005','110th\n2007',
+      '111th\n2009','112th\n2011','113th\n2013','114th\n2015','115th\n2017',
+      '116th\n2019','117th\n2021','118th\n2023'
+    ];
+
+    const shortLabels = [
+      '1969','1971','1973','1975','1977','1979','1981','1983','1985','1987',
+      '1989','1991','1993','1995','1997','1999','2001','2003','2005','2007',
+      '2009','2011','2013','2015','2017','2019','2021','2023'
+    ];
+
+    const values = [
+      695,607,649,588,634,613,473,623,664,713,
+      650,590,465,333,394,580,377,498,482,460,
+      383,283,296,329,442,344,362,274
+    ];
+
+    // Index of 93rd Congress (1973-74) — where 1974 reforms land
+    const idx1974 = 2;
+
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+
+    const grad = ctx.createLinearGradient(0, 0, 0, 340);
+    grad.addColorStop(0, 'rgba(61,63,124,0.13)');
+    grad.addColorStop(1, 'rgba(61,63,124,0.01)');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: shortLabels,
+        datasets: [{
+          data: values,
+          backgroundColor: values.map((v, i) => i === 27 ? '#a63232' : '#3d3f7c'),
+          borderColor: values.map((v, i) => i === 27 ? '#a63232' : '#3d3f7c'),
+          borderWidth: 0,
+          borderRadius: 2,
+          hoverBackgroundColor: values.map((v, i) => i === 27 ? '#c04040' : '#5557a0'),
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#ffffff',
+            borderColor: '#d8dbe6',
+            borderWidth: 1,
+            titleColor: '#8a8fa8',
+            bodyColor: '#2a2c4a',
+            titleFont: { family: 'Georgia, serif', size: 11 },
+            bodyFont: { family: 'Georgia, serif', size: 14, weight: 'bold' },
+            padding: 12,
+            callbacks: {
+              title: (items) => {
+                const i = items[0].dataIndex;
+                return shortLabels[i];
+              },
+              label: (item) => `${item.raw} public laws enacted`,
+            }
+          },
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            border: { color: '#d8dbe6' },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 10 },
+              maxRotation: 0,
+              callback: function(val, i) {
+                const yr = parseInt(shortLabels[i]);
+                return [1969,1975,1981,1987,1993,1999,2005,2011,2017,2023].includes(yr) ? yr : '';
+              }
+            }
+          },
+          y: {
+            min: 0,
+            max: 800,
+            grid: { color: '#d8dbe6' },
+            border: { display: false },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 11 },
+              stepSize: 200,
+            }
+          }
+        }
+      }
+    });
+
+    // Draw 1974 annotation manually after chart renders
+    // (chartjs-plugin-annotation not loaded; using afterRender hack)
+    Chart.register({
+      id: 'verticalLine1974',
+      afterDraw(chart) {
+        const { ctx, chartArea, scales } = chart;
+        // Find x position between index 2 (93rd) and 3 (94th)
+        const x0 = scales.x.getPixelForValue(2);
+        const x1 = scales.x.getPixelForValue(3);
+        const xMid = (x0 + x1) / 2;
+
+        ctx.save();
+        ctx.setLineDash([4, 3]);
+        ctx.strokeStyle = '#a63232';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(xMid, chartArea.top);
+        ctx.lineTo(xMid, chartArea.bottom);
+        ctx.stroke();
+
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#a63232';
+        ctx.font = '10px Georgia, serif';
+        ctx.fillText('1974', xMid + 4, chartArea.top + 14);
+        ctx.restore();
+      }
+    });
+  </script>
+</body>
+</html>
