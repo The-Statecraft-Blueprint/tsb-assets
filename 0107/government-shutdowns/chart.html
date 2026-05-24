@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Government Shutdowns Keep Getting Longer — The Statecraft Blueprint</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #eef0f5;
+      font-family: Georgia, 'Times New Roman', serif;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    .wrap { width: 100%; max-width: 820px; background: #eef0f5; padding: 36px 40px 28px; }
+    .eyebrow { font-size: 10px; letter-spacing: 0.18em; color: #a63232; text-transform: uppercase; margin-bottom: 12px; }
+    h2 { color: #2a2c4a; font-size: 20px; font-weight: normal; margin: 0 0 6px; line-height: 1.3; }
+    .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 28px; line-height: 1.5; }
+    .chart-wrap { position: relative; height: 360px; }
+    .legend { display: flex; gap: 24px; margin-top: 14px; margin-bottom: 4px; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #8a8fa8; }
+    .legend-swatch { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+    .callouts { display: flex; margin-top: 24px; border-top: 1px solid #d8dbe6; padding-top: 20px; }
+    .callout { flex: 1; padding-right: 20px; border-right: 1px solid #d8dbe6; }
+    .callout:last-child { border-right: none; }
+    .callout + .callout { padding-left: 20px; }
+    .callout-num { font-size: 26px; font-weight: bold; line-height: 1; letter-spacing: -0.02em; }
+    .callout-label { font-size: 11px; color: #8a8fa8; margin-top: 5px; line-height: 1.4; }
+    .source { margin-top: 16px; font-size: 10px; color: #8a8fa8; line-height: 1.5; border-top: 1px solid #d8dbe6; padding-top: 12px; }
+    .source a { color: #3d3f7c; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">The Statecraft Blueprint</div>
+    <h2>Government Shutdowns Keep Getting Longer</h2>
+    <p class="subtitle">
+      Duration in days of every federal government funding gap and shutdown since 1976.
+      Before 1981, agencies continued operating during funding lapses. After 1981, they stopped.
+    </p>
+
+    <div class="chart-wrap">
+      <canvas id="chart"></canvas>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#b8bdd4;"></div>
+        Pre-1981: technical funding gaps (agencies kept operating)
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#3d3f7c;"></div>
+        Real shutdowns (agencies halted, workers furloughed)
+      </div>
+      <div class="legend-item">
+        <div class="legend-swatch" style="background:#a63232;"></div>
+        Longest on record
+      </div>
+    </div>
+
+    <div class="callouts">
+      <div class="callout">
+        <div class="callout-num" style="color:#3d3f7c">0</div>
+        <div class="callout-label">real shutdowns<br>before 1981</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#3d3f7c">21</div>
+        <div class="callout-label">real shutdowns<br>since 1981</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#a63232">76</div>
+        <div class="callout-label">days — longest shutdown<br>in U.S. history (2025–26)</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#a63232">$11B</div>
+        <div class="callout-label">estimated cost of the<br>35-day 2018–19 shutdown alone</div>
+      </div>
+    </div>
+
+    <p class="source">
+      Sources: Congressional Research Service, "Federal Funding Gaps: A Brief Overview";
+      CRFB Government Shutdowns Q&amp;A; HSToday (2025–26 DHS shutdown).
+      Full data and methodology: <a href="sources.md">sources.md</a> &nbsp;|&nbsp;
+      Raw data: <a href="data.csv">data.csv</a>
+    </p>
+  </div>
+
+  <script>
+    const shutdowns = [
+      { label: "1976",  days: 10,  real: false },
+      { label: "1977a", days: 12,  real: false },
+      { label: "1977b", days: 8,   real: false },
+      { label: "1977c", days: 8,   real: false },
+      { label: "1978",  days: 17,  real: false },
+      { label: "1979",  days: 11,  real: false },
+      { label: "1981",  days: 2,   real: true  },
+      { label: "1982",  days: 1,   real: true  },
+      { label: "1983",  days: 3,   real: true  },
+      { label: "1984a", days: 2,   real: true  },
+      { label: "1984b", days: 1,   real: true  },
+      { label: "1986",  days: 1,   real: true  },
+      { label: "1987",  days: 1,   real: true  },
+      { label: "1990",  days: 3,   real: true  },
+      { label: "1995",  days: 5,   real: true  },
+      { label: "1995–96", days: 21, real: true },
+      { label: "2013",  days: 16,  real: true  },
+      { label: "Jan '18", days: 2, real: true  },
+      { label: "Feb '18", days: 1, real: true  },
+      { label: "2018–19", days: 35, real: true },
+      { label: "2023",  days: 1,   real: true  },
+      { label: "2025–26", days: 76, real: true, record: true },
+    ];
+
+    const labels = shutdowns.map(s => s.label);
+    const values = shutdowns.map(s => s.days);
+    const colors = shutdowns.map(s =>
+      s.record ? '#a63232' : s.real ? '#3d3f7c' : '#b8bdd4'
+    );
+    const hoverColors = shutdowns.map(s =>
+      s.record ? '#c04040' : s.real ? '#5557a0' : '#9099b8'
+    );
+
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+
+    new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          data: values,
+          backgroundColor: colors,
+          hoverBackgroundColor: hoverColors,
+          borderWidth: 0,
+          borderRadius: 2,
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#ffffff',
+            borderColor: '#d8dbe6',
+            borderWidth: 1,
+            titleColor: '#8a8fa8',
+            bodyColor: '#2a2c4a',
+            titleFont: { family: 'Georgia, serif', size: 11 },
+            bodyFont: { family: 'Georgia, serif', size: 14, weight: 'bold' },
+            padding: 12,
+            callbacks: {
+              title: (items) => items[0].label,
+              label: (item) => {
+                const s = shutdowns[item.dataIndex];
+                const type = !s.real ? ' (technical gap — agencies kept running)' : '';
+                return `${item.raw} day${item.raw !== 1 ? 's' : ''}${type}`;
+              }
+            }
+          },
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            border: { color: '#d8dbe6' },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 9 },
+              maxRotation: 45,
+              minRotation: 45,
+            }
+          },
+          y: {
+            min: 0,
+            max: 85,
+            grid: { color: '#d8dbe6' },
+            border: { display: false },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 11 },
+              callback: v => v === 0 ? '' : `${v}d`,
+              stepSize: 10,
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

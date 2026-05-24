@@ -1,0 +1,23 @@
+year,fiscal_year,start_date,end_date,duration_days,real_shutdown,president,primary_dispute,estimated_cost
+1976,1977,1976-09-30,1976-10-11,10,false,Ford,HEW appropriations / spending levels,minimal
+1977,1978,1977-09-30,1977-10-13,12,false,Carter,Medicaid abortion funding,minimal
+1977,1978,1977-10-31,1977-11-09,8,false,Carter,Medicaid abortion funding,minimal
+1977,1978,1977-11-30,1977-12-09,8,false,Carter,Medicaid abortion funding,minimal
+1978,1979,1978-09-30,1978-10-18,17,false,Carter,Public works / defense bill vetoes,minimal
+1979,1980,1979-09-30,1979-10-12,11,false,Carter,Medicaid abortion / pay raise,minimal
+1981,1982,1981-11-20,1981-11-23,2,true,Reagan,Continuing resolution spending levels,minimal
+1982,1983,1982-09-30,1982-10-02,1,true,Reagan,Continuing resolution,minimal
+1983,1984,1983-11-10,1983-11-14,3,true,Reagan,Continuing resolution,minimal
+1984,1985,1984-09-30,1984-10-04,2,true,Reagan,Appropriations,minimal
+1984,1985,1984-10-04,1984-10-06,1,true,Reagan,Appropriations,minimal
+1986,1987,1986-10-17,1986-10-19,1,true,Reagan,Appropriations,minimal
+1987,1988,1987-12-18,1987-12-20,1,true,Reagan,Welfare / housing / continuing resolution,minimal
+1990,1991,1990-10-05,1990-10-09,3,true,Bush,Budget negotiations,minimal
+1995,1996,1995-11-13,1995-11-19,5,true,Clinton,Budget / Medicare / Medicaid,1.4 billion
+1995,1996,1995-12-15,1996-01-06,21,true,Clinton,Budget / Medicare / education,1.25 billion
+2013,2014,2013-10-01,2013-10-16,16,true,Obama,Affordable Care Act / debt ceiling,24 billion
+2018,2019,2018-01-20,2018-01-22,2,true,Trump,DACA / immigration,6 million per day
+2018,2019,2018-02-09,2018-02-09,1,true,Trump,Spending caps,minimal
+2018,2019,2018-12-22,2019-01-25,35,true,Trump,Border wall funding,11 billion
+2023,2024,2023-09-30,2023-10-01,1,true,Biden,Appropriations / debt ceiling,minimal
+2025,2026,2025-03-15,2026-05-29,76,true,Trump,DHS funding / immigration,est. billions
