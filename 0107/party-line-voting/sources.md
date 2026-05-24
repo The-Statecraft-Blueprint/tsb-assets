@@ -63,4 +63,4 @@ The chart displays metric 1 only (house party-unity votes %) as the primary visu
 |------|--------|--------|
 | May 2026 | Initial publication | TSB |
 
-*If you believe a data point is incorrect, please open an issue at https://github.com/thestatecraftblueprint/tsb-charts or email [contact]. We will review, correct if warranted, and document the change in this version history.*
+*If you believe a data point is incorrect, please open an issue at https://github.com/thestatecraftblueprint/tsb-charts or email jason@statecraftblueprint.org. We will review, correct if warranted, and document the change in this version history.*
