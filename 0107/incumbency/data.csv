@@ -1,0 +1,29 @@
+year,total_seeking_reelection,defeated_primary,defeated_general,total_reelected,reelection_rate_pct,notes
+1970,401,10,12,379,94.5,Brookings Table 2-7
+1972,393,11,13,365,92.9,Brookings Table 2-7
+1974,391,8,40,343,87.7,Brookings Table 2-7 — Watergate wave
+1976,384,3,13,368,95.8,Brookings Table 2-7
+1978,382,5,19,358,93.7,Brookings Table 2-7
+1980,398,6,31,361,90.7,Brookings Table 2-7 — Reagan wave
+1982,393,10,29,354,90.1,Brookings Table 2-7
+1984,411,3,16,392,95.4,Brookings Table 2-7
+1986,394,3,6,385,97.7,Brookings Table 2-7
+1988,409,1,6,402,98.3,Brookings Table 2-7
+1990,406,1,15,390,96.1,Brookings Table 2-7
+1992,368,19,24,325,88.3,Brookings Table 2-7 — redistricting year
+1994,387,4,34,349,90.2,Brookings Table 2-7 — Republican revolution
+1996,382,2,21,359,94.0,OpenSecrets
+1998,401,1,6,394,98.3,OpenSecrets
+2000,403,3,6,394,97.8,OpenSecrets
+2002,390,8,8,374,95.9,OpenSecrets — redistricting year
+2004,404,2,7,395,97.8,OpenSecrets
+2006,403,2,22,379,94.0,OpenSecrets — Democratic wave
+2008,403,4,19,380,94.3,OpenSecrets
+2010,396,4,54,338,85.4,OpenSecrets — Tea Party wave
+2012,390,8,27,355,91.0,OpenSecrets — redistricting year
+2014,388,5,13,370,95.4,OpenSecrets
+2016,393,5,8,380,96.7,OpenSecrets
+2018,381,3,30,348,91.3,OpenSecrets — Democratic wave
+2020,380,3,11,366,96.3,OpenSecrets
+2022,372,5,16,351,94.4,OpenSecrets
+2024,381,4,8,369,97.1,Ballotpedia
