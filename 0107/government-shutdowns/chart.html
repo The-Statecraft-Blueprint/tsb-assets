@@ -18,9 +18,18 @@
     .wrap { width: 100%; max-width: 820px; background: #eef0f5; padding: 36px 40px 28px; }
     .eyebrow { font-size: 10px; letter-spacing: 0.18em; color: #a63232; text-transform: uppercase; margin-bottom: 12px; }
     h2 { color: #2a2c4a; font-size: 20px; font-weight: normal; margin: 0 0 6px; line-height: 1.3; }
-    .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 28px; line-height: 1.5; }
+    .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 20px; line-height: 1.5; }
+    .early-note {
+      background: #e4e7f0;
+      border-left: 3px solid #b8bdd4;
+      padding: 10px 14px;
+      font-size: 12px;
+      color: #6b7a94;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
     .chart-wrap { position: relative; height: 360px; }
-    .legend { display: flex; gap: 24px; margin-top: 14px; margin-bottom: 4px; }
+    .legend { display: flex; gap: 24px; margin-top: 14px; }
     .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #8a8fa8; }
     .legend-swatch { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
     .callouts { display: flex; margin-top: 24px; border-top: 1px solid #d8dbe6; padding-top: 20px; }
@@ -38,9 +47,15 @@
     <div class="eyebrow">The Statecraft Blueprint</div>
     <h2>Government Shutdowns Keep Getting Longer</h2>
     <p class="subtitle">
-      Duration in days of every federal government funding gap and shutdown since 1976.
-      Before 1981, agencies continued operating during funding lapses. After 1981, they stopped.
+      Duration of every major government shutdown since 1995.
+      The pattern is clear: shutdowns are getting longer, more frequent, and more disruptive.
     </p>
+
+    <div class="early-note">
+      <strong>Before 1995:</strong> There were 13 short shutdowns between 1981 and 1990,
+      averaging just 2 days each. Most Americans never noticed them. The longest was 3 days.
+      The era of consequential shutdowns begins in 1995.
+    </div>
 
     <div class="chart-wrap">
       <canvas id="chart"></canvas>
@@ -48,12 +63,12 @@
 
     <div class="legend">
       <div class="legend-item">
-        <div class="legend-swatch" style="background:#b8bdd4;"></div>
-        Pre-1981: technical funding gaps (agencies kept operating)
+        <div class="legend-swatch" style="background:#3d3f7c;"></div>
+        Full government shutdown
       </div>
       <div class="legend-item">
-        <div class="legend-swatch" style="background:#3d3f7c;"></div>
-        Real shutdowns (agencies halted, workers furloughed)
+        <div class="legend-swatch" style="background:#7b7db0;"></div>
+        Partial shutdown (some agencies)
       </div>
       <div class="legend-item">
         <div class="legend-swatch" style="background:#a63232;"></div>
@@ -63,26 +78,27 @@
 
     <div class="callouts">
       <div class="callout">
-        <div class="callout-num" style="color:#3d3f7c">0</div>
-        <div class="callout-label">real shutdowns<br>before 1981</div>
+        <div class="callout-num" style="color:#3d3f7c">2 days</div>
+        <div class="callout-label">avg. shutdown duration<br>1981–1990</div>
       </div>
       <div class="callout">
-        <div class="callout-num" style="color:#3d3f7c">21</div>
-        <div class="callout-label">real shutdowns<br>since 1981</div>
+        <div class="callout-num" style="color:#3d3f7c">13 days</div>
+        <div class="callout-label">avg. shutdown duration<br>1995–2019</div>
       </div>
       <div class="callout">
-        <div class="callout-num" style="color:#a63232">76</div>
-        <div class="callout-label">days — longest shutdown<br>in U.S. history (2025–26)</div>
+        <div class="callout-num" style="color:#a63232">43 days</div>
+        <div class="callout-label">longest full shutdown ever<br>Oct–Nov 2025, 900K furloughed</div>
       </div>
       <div class="callout">
-        <div class="callout-num" style="color:#a63232">$11B</div>
-        <div class="callout-label">estimated cost of the<br>35-day 2018–19 shutdown alone</div>
+        <div class="callout-num" style="color:#a63232">76 days</div>
+        <div class="callout-label">longest partial shutdown ever<br>DHS only, Feb–Apr 2026</div>
       </div>
     </div>
 
     <p class="source">
       Sources: Congressional Research Service, "Federal Funding Gaps: A Brief Overview";
-      CRFB Government Shutdowns Q&amp;A; HSToday (2025–26 DHS shutdown).
+      Wikipedia, "2025 United States federal government shutdown";
+      Wikipedia, "2026 United States federal government shutdowns."
       Full data and methodology: <a href="sources.md">sources.md</a> &nbsp;|&nbsp;
       Raw data: <a href="data.csv">data.csv</a>
     </p>
@@ -90,38 +106,90 @@
 
   <script>
     const shutdowns = [
-      { label: "1976",  days: 10,  real: false },
-      { label: "1977a", days: 12,  real: false },
-      { label: "1977b", days: 8,   real: false },
-      { label: "1977c", days: 8,   real: false },
-      { label: "1978",  days: 17,  real: false },
-      { label: "1979",  days: 11,  real: false },
-      { label: "1981",  days: 2,   real: true  },
-      { label: "1982",  days: 1,   real: true  },
-      { label: "1983",  days: 3,   real: true  },
-      { label: "1984a", days: 2,   real: true  },
-      { label: "1984b", days: 1,   real: true  },
-      { label: "1986",  days: 1,   real: true  },
-      { label: "1987",  days: 1,   real: true  },
-      { label: "1990",  days: 3,   real: true  },
-      { label: "1995",  days: 5,   real: true  },
-      { label: "1995–96", days: 21, real: true },
-      { label: "2013",  days: 16,  real: true  },
-      { label: "Jan '18", days: 2, real: true  },
-      { label: "Feb '18", days: 1, real: true  },
-      { label: "2018–19", days: 35, real: true },
-      { label: "2023",  days: 1,   real: true  },
-      { label: "2025–26", days: 76, real: true, record: true },
+      {
+        label: "Nov 1995",
+        days: 5,
+        full: true,
+        record: false,
+        tooltip: "5 days\nBudget dispute: Medicare, Medicaid, education"
+      },
+      {
+        label: "Dec 1995–\nJan 1996",
+        days: 21,
+        full: true,
+        record: false,
+        tooltip: "21 days\nBudget / Medicare / education\nLongest shutdown at the time"
+      },
+      {
+        label: "Oct 2013",
+        days: 16,
+        full: true,
+        record: false,
+        tooltip: "16 days\nAffordable Care Act / debt ceiling\nEst. cost: $24 billion"
+      },
+      {
+        label: "Jan 2018",
+        days: 2,
+        full: true,
+        record: false,
+        tooltip: "2 days\nDACA / immigration"
+      },
+      {
+        label: "Feb 2018",
+        days: 1,
+        full: true,
+        record: false,
+        tooltip: "1 day\nSpending caps"
+      },
+      {
+        label: "Dec 2018–\nJan 2019",
+        days: 35,
+        full: true,
+        record: false,
+        tooltip: "35 days\nBorder wall funding\nEst. cost: $11 billion\nLongest full shutdown at the time"
+      },
+      {
+        label: "Oct 2023",
+        days: 1,
+        full: true,
+        record: false,
+        tooltip: "1 day\nAppropiations / debt ceiling"
+      },
+      {
+        label: "Oct–Nov\n2025",
+        days: 43,
+        full: true,
+        record: true,
+        tooltip: "43 days\nLongest full government shutdown in U.S. history\n~900,000 workers furloughed"
+      },
+      {
+        label: "Jan–Feb\n2026",
+        days: 4,
+        full: false,
+        record: false,
+        tooltip: "4 days (partial)\nHalf of federal departments\nImmigration reform dispute"
+      },
+      {
+        label: "Feb–Apr\n2026\n(DHS only)",
+        days: 76,
+        full: false,
+        record: true,
+        tooltip: "76 days (partial — DHS only)\nLongest partial shutdown in U.S. history\nDHS funding / immigration reform"
+      },
     ];
 
     const labels = shutdowns.map(s => s.label);
     const values = shutdowns.map(s => s.days);
-    const colors = shutdowns.map(s =>
-      s.record ? '#a63232' : s.real ? '#3d3f7c' : '#b8bdd4'
-    );
-    const hoverColors = shutdowns.map(s =>
-      s.record ? '#c04040' : s.real ? '#5557a0' : '#9099b8'
-    );
+    const colors = shutdowns.map(s => {
+      if (s.record) return '#a63232';
+      if (s.full) return '#3d3f7c';
+      return '#7b7db0';
+    });
+    const hoverColors = shutdowns.map(s => {
+      if (s.record) return '#c04040';
+      if (s.full) return '#5557a0';
+      return '#9395c4';
+    });
 
     const canvas = document.getElementById('chart');
     const ctx = canvas.getContext('2d');
@@ -135,7 +203,7 @@
           backgroundColor: colors,
           hoverBackgroundColor: hoverColors,
           borderWidth: 0,
-          borderRadius: 2,
+          borderRadius: 3,
         }]
       },
       options: {
@@ -150,14 +218,12 @@
             titleColor: '#8a8fa8',
             bodyColor: '#2a2c4a',
             titleFont: { family: 'Georgia, serif', size: 11 },
-            bodyFont: { family: 'Georgia, serif', size: 14, weight: 'bold' },
+            bodyFont: { family: 'Georgia, serif', size: 13 },
             padding: 12,
             callbacks: {
-              title: (items) => items[0].label,
+              title: (items) => shutdowns[items[0].dataIndex].label.replace(/\n/g, ' '),
               label: (item) => {
-                const s = shutdowns[item.dataIndex];
-                const type = !s.real ? ' (technical gap — agencies kept running)' : '';
-                return `${item.raw} day${item.raw !== 1 ? 's' : ''}${type}`;
+                return shutdowns[item.dataIndex].tooltip.split('\n');
               }
             }
           },
@@ -168,9 +234,8 @@
             border: { color: '#d8dbe6' },
             ticks: {
               color: '#8a8fa8',
-              font: { family: 'Georgia, serif', size: 9 },
-              maxRotation: 45,
-              minRotation: 45,
+              font: { family: 'Georgia, serif', size: 10 },
+              maxRotation: 0,
             }
           },
           y: {
