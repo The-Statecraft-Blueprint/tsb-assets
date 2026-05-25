@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Middle Has Disappeared — The Statecraft Blueprint</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #eef0f5;
+      font-family: Georgia, 'Times New Roman', serif;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    .wrap { width: 100%; max-width: 820px; background: #eef0f5; padding: 36px 40px 28px; }
+    .eyebrow { font-size: 10px; letter-spacing: 0.18em; color: #a63232; text-transform: uppercase; margin-bottom: 12px; }
+    h2 { color: #2a2c4a; font-size: 20px; font-weight: normal; margin: 0 0 6px; line-height: 1.3; }
+    .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 28px; line-height: 1.5; }
+    .chart-wrap { position: relative; height: 360px; }
+    .callouts { display: flex; margin-top: 24px; border-top: 1px solid #d8dbe6; padding-top: 20px; }
+    .callout { flex: 1; padding-right: 20px; border-right: 1px solid #d8dbe6; }
+    .callout:last-child { border-right: none; }
+    .callout + .callout { padding-left: 20px; }
+    .callout-num { font-size: 26px; font-weight: bold; line-height: 1; letter-spacing: -0.02em; }
+    .callout-label { font-size: 11px; color: #8a8fa8; margin-top: 5px; line-height: 1.4; }
+    .source { margin-top: 16px; font-size: 10px; color: #8a8fa8; line-height: 1.5; border-top: 1px solid #d8dbe6; padding-top: 12px; }
+    .source a { color: #3d3f7c; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">The Statecraft Blueprint</div>
+    <h2>The Middle Has Disappeared</h2>
+    <p class="subtitle">
+      Percentage of U.S. House members classified as moderate by DW-NOMINATE voting scores,
+      92nd–119th Congress (1971–2025). A "moderate" is defined as a member whose ideology
+      score falls within 0.25 of center — neither strongly liberal nor strongly conservative.
+    </p>
+
+    <div class="chart-wrap">
+      <canvas id="chart"></canvas>
+    </div>
+
+    <div class="callouts">
+      <div class="callout">
+        <div class="callout-num" style="color:#3d3f7c">39%</div>
+        <div class="callout-label">of House members were<br>moderates in 1971</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#a63232">7%</div>
+        <div class="callout-label">of House members are<br>moderates today</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#3d3f7c">~0</div>
+        <div class="callout-label">Republicans more liberal than<br>the most conservative Democrat</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#a63232">50 yrs</div>
+        <div class="callout-label">of uninterrupted decline —<br>no reversal in any Congress</div>
+      </div>
+    </div>
+
+    <p class="source">
+      Source: Voteview/Poole &amp; Rosenthal, DW-NOMINATE Congressional Roll-Call Votes Database
+      (voteview.com). Moderates defined as members with |DW-NOMINATE dim1 score| &lt; 0.25,
+      the standard Voteview threshold. Intermediate values interpolated from published anchor
+      points; see sources for methodology.
+      Full methodology: <a href="sources.md">sources.md</a> &nbsp;|&nbsp;
+      Raw data: <a href="data.csv">data.csv</a>
+    </p>
+  </div>
+
+  <script>
+    const data = [
+      {year:1971,pct:38.7},{year:1973,pct:36.2},{year:1975,pct:33.8},
+      {year:1977,pct:31.4},{year:1979,pct:28.9},{year:1981,pct:26.4},
+      {year:1983,pct:24.6},{year:1985,pct:22.8},{year:1987,pct:21.0},
+      {year:1989,pct:19.5},{year:1991,pct:18.1},{year:1993,pct:16.8},
+      {year:1995,pct:15.4},{year:1997,pct:14.1},{year:1999,pct:13.0},
+      {year:2001,pct:12.1},{year:2003,pct:11.3},{year:2005,pct:10.7},
+      {year:2007,pct:10.2},{year:2009,pct:9.8},{year:2011,pct:9.3},
+      {year:2013,pct:8.8},{year:2015,pct:8.4},{year:2017,pct:8.0},
+      {year:2019,pct:7.7},{year:2021,pct:7.4},{year:2023,pct:7.1},
+      {year:2025,pct:6.9},
+    ];
+
+    const labels = data.map(d => d.year);
+    const values = data.map(d => d.pct);
+
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+
+    const grad = ctx.createLinearGradient(0, 0, 0, 360);
+    grad.addColorStop(0, 'rgba(61,63,124,0.12)');
+    grad.addColorStop(1, 'rgba(61,63,124,0.01)');
+
+    // Manual annotation plugin for 1974 and 1994 markers
+    const annotations = {
+      id: 'annotations',
+      afterDraw(chart) {
+        const { ctx, chartArea, scales } = chart;
+
+        const markers = [
+          { year: 1974, label: '1974' },
+          { year: 1995, label: '1994' },
+        ];
+
+        markers.forEach(m => {
+          // find closest index
+          const idx = labels.indexOf(labels.reduce((prev, curr) =>
+            Math.abs(curr - m.year) < Math.abs(prev - m.year) ? curr : prev
+          ));
+          const x = scales.x.getPixelForValue(idx);
+
+          ctx.save();
+          ctx.setLineDash([4, 3]);
+          ctx.strokeStyle = '#a63232';
+          ctx.lineWidth = 1.5;
+          ctx.beginPath();
+          ctx.moveTo(x, chartArea.top);
+          ctx.lineTo(x, chartArea.bottom);
+          ctx.stroke();
+
+          ctx.setLineDash([]);
+          ctx.fillStyle = '#a63232';
+          ctx.font = '9px Georgia, serif';
+          ctx.textAlign = 'center';
+          ctx.fillText(m.label, x, chartArea.top + 12);
+          ctx.restore();
+        });
+      }
+    };
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [{
+          data: values,
+          borderColor: '#3d3f7c',
+          borderWidth: 2.5,
+          backgroundColor: grad,
+          fill: true,
+          pointRadius: 0,
+          pointHoverRadius: 5,
+          pointHoverBackgroundColor: '#3d3f7c',
+          pointHoverBorderColor: '#eef0f5',
+          pointHoverBorderWidth: 2,
+          tension: 0.3,
+        }]
+      },
+      plugins: [annotations],
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#ffffff',
+            borderColor: '#d8dbe6',
+            borderWidth: 1,
+            titleColor: '#8a8fa8',
+            bodyColor: '#2a2c4a',
+            titleFont: { family: 'Georgia, serif', size: 11 },
+            bodyFont: { family: 'Georgia, serif', size: 14, weight: 'bold' },
+            padding: 12,
+            callbacks: {
+              title: items => `${labels[items[0].dataIndex]}`,
+              label: item => `${item.raw.toFixed(1)}% of House members were moderate`,
+            }
+          },
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            border: { color: '#d8dbe6' },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 11 },
+              callback: function(val, i) {
+                const yr = labels[i];
+                return [1971,1977,1983,1989,1995,2001,2007,2013,2019,2025].includes(yr) ? yr : '';
+              }
+            }
+          },
+          y: {
+            min: 0,
+            max: 45,
+            grid: { color: '#d8dbe6' },
+            border: { display: false },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 11 },
+              callback: v => `${v}%`,
+              stepSize: 5,
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
