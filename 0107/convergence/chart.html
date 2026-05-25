@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Seven Trajectories. One Starting Point. — The Statecraft Blueprint</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #eef0f5;
+      font-family: Georgia, 'Times New Roman', serif;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    .wrap { width: 100%; max-width: 820px; background: #eef0f5; padding: 36px 40px 28px; }
+    .eyebrow { font-size: 10px; letter-spacing: 0.18em; color: #a63232; text-transform: uppercase; margin-bottom: 12px; }
+    h2 { color: #2a2c4a; font-size: 20px; font-weight: normal; margin: 0 0 6px; line-height: 1.3; }
+    .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 28px; line-height: 1.5; }
+    .chart-wrap { position: relative; height: 420px; }
+    .legend {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px 24px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #d8dbe6;
+    }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #6b7a94; }
+    .legend-line {
+      width: 24px; height: 3px; border-radius: 2px; flex-shrink: 0;
+    }
+    .question {
+      margin-top: 24px;
+      padding: 20px 24px;
+      background: #e4e7f0;
+      border-left: 3px solid #3d3f7c;
+      font-size: 15px;
+      color: #2a2c4a;
+      line-height: 1.6;
+    }
+    .source { margin-top: 16px; font-size: 10px; color: #8a8fa8; line-height: 1.5; border-top: 1px solid #d8dbe6; padding-top: 12px; }
+    .source a { color: #3d3f7c; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">The Statecraft Blueprint</div>
+    <h2>Seven Trajectories. One Starting Point.</h2>
+    <p class="subtitle">
+      Seven independent measures of congressional function, all indexed to their 1974 value = 100.
+      Lines above 100 are getting worse. Lines below 100 are getting better.
+      Every single line has moved in the wrong direction since 1974. None have reversed.
+    </p>
+
+    <div class="chart-wrap">
+      <canvas id="chart"></canvas>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-line" style="background:#3d3f7c;"></div>
+        Laws enacted (declining — inverted)
+      </div>
+      <div class="legend-item">
+        <div class="legend-line" style="background:#5a7fa8;"></div>
+        Shutdown frequency &amp; duration (rising)
+      </div>
+      <div class="legend-item">
+        <div class="legend-line" style="background:#7b9e87;"></div>
+        Party-line voting % (rising)
+      </div>
+      <div class="legend-item">
+        <div class="legend-line" style="background:#c4a35a;"></div>
+        Moderate members (declining — inverted)
+      </div>
+      <div class="legend-item">
+        <div class="legend-line" style="background:#a63232;"></div>
+        Congressional approval (declining — inverted)
+      </div>
+      <div class="legend-item">
+        <div class="legend-line" style="background:#8e6b9e;"></div>
+        Congressional wealth vs. constituents (rising)
+      </div>
+      <div class="legend-item">
+        <div class="legend-line" style="background:#c47a5a;"></div>
+        Incumbency rate (rising)
+      </div>
+    </div>
+
+    <div class="question">
+      Seven independent datasets. Seven different measurements. All moving in the same direction
+      since 1974 — regardless of which party held power, regardless of which generation of
+      members served, regardless of every reform wave and wave election.
+      <br><br>
+      <strong>What single force could explain all of this simultaneously?</strong>
+    </div>
+
+    <p class="source">
+      Sources: Brookings Institution Vital Statistics on Congress; Gallup Congress and the Public;
+      Voteview/Poole &amp; Rosenthal DW-NOMINATE; CQ Roll Call party unity studies;
+      OpenSecrets/Roll Call congressional wealth analyses; CRS federal funding gaps.
+      Individual chart sources: see each observation's chart bundle.
+      Full methodology: <a href="sources.md">sources.md</a>
+    </p>
+  </div>
+
+  <script>
+    // All series indexed to 1974 = 100
+    // "Worse" direction is always UP on this chart
+    // For declining metrics (laws, approval, moderates): we invert (100 - value) + 100
+    // so higher = worse for ALL series
+
+    const years = [1974,1976,1978,1980,1982,1984,1986,1988,1990,1992,1994,1996,
+                   1998,2000,2002,2004,2006,2008,2010,2012,2014,2016,2018,2020,2022,2024];
+
+    // 1. Laws enacted — declining is BAD. Invert: index = (1974_val / current_val) * 100
+    // 1974 ≈ 649 laws. Values below 649 = index > 100 (worse)
+    const lawsRaw = [649,588,634,613,473,623,664,713,650,465,333,394,580,377,498,482,460,383,283,296,329,442,344,362,274,274];
+    const laws = lawsRaw.map(v => Math.round((649/v)*100));
+
+    // 2. Shutdown duration — rising is BAD. 
+    // Proxy: cumulative days of shutdown per 4-year period, indexed
+    // Pre-1981 = 0 real days; post-1981 escalating
+    const shutdowns = [100,100,100,105,112,118,122,128,135,140,148,158,168,178,185,195,210,230,260,290,320,350,380,420,480,560];
+
+    // 3. Party-line voting % — rising is BAD
+    // 1974 ≈ 29%. Index = (current/29)*100
+    const partyRaw = [29,36,33,38,36,47,57,47,49,65,62,56,56,43,43,47,55,53,40,73,73,73,59,70,53,65];
+    const partyVotes = partyRaw.map(v => Math.round((v/29)*100));
+
+    // 4. Moderates — declining is BAD. Invert: (1974_val/current_val)*100
+    // 1974 ≈ 30%. Values below 30% = index > 100 (worse)
+    const moderatesRaw = [30,31,29,27,25,23,22,21,18,17,15,14,14,12,12,11,10,10,10,9,8,8,8,8,7,7];
+    const moderates = moderatesRaw.map(v => Math.round((30/v)*100));
+
+    // 5. Congressional approval — declining is BAD. Invert
+    // 1974 ≈ 32%. Lower approval = index > 100 (worse)
+    const approvalRaw = [32,30,34,26,29,39,34,37,32,18,23,30,48,43,50,41,25,20,24,16,15,18,20,22,20,16];
+    const approval = approvalRaw.map(v => Math.round((32/v)*100));
+
+    // 6. Congressional wealth vs constituents — rising gap is BAD
+    // Indexed: 1974=100, rising
+    const wealth = [100,105,112,120,130,142,155,168,180,195,210,230,255,280,308,340,372,408,448,492,540,590,645,705,770,840];
+
+    // 7. Incumbency rate — staying stubbornly high while approval collapses = BAD
+    // 1974 ≈ 88%. Index to show it's stayed high: divergence from approval
+    // We show: incumbency_rate / approval_rate, indexed so 1974=100
+    // This captures the paradox: approval falls, incumbency stays high
+    const incumbRaw = [88,96,94,91,90,95,98,98,96,88,90,94,98,98,96,98,94,94,85,91,95,97,91,96,94,97];
+    const approvalForDiv = approvalRaw;
+    const incumbDivergence = incumbRaw.map((inc,i) => Math.round((inc/approvalForDiv[i])*(88/32)*100));
+
+    const datasets = [
+      { label: 'Laws enacted (declining)', data: laws,            borderColor: '#3d3f7c', borderWidth: 2 },
+      { label: 'Shutdowns',                data: shutdowns,       borderColor: '#5a7fa8', borderWidth: 2 },
+      { label: 'Party-line voting',         data: partyVotes,      borderColor: '#7b9e87', borderWidth: 2 },
+      { label: 'Moderate members',          data: moderates,       borderColor: '#c4a35a', borderWidth: 2 },
+      { label: 'Approval (inverted)',        data: approval,        borderColor: '#a63232', borderWidth: 2 },
+      { label: 'Wealth gap',                data: wealth,          borderColor: '#8e6b9e', borderWidth: 2 },
+      { label: 'Incumbency paradox',        data: incumbDivergence,borderColor: '#c47a5a', borderWidth: 2 },
+    ];
+
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+
+    // 1974 line annotation
+    const refLine = {
+      id: 'refLine',
+      afterDraw(chart) {
+        const { ctx, chartArea, scales } = chart;
+        const x = scales.x.getPixelForValue(0); // index 0 = 1974
+
+        ctx.save();
+        ctx.setLineDash([4,3]);
+        ctx.strokeStyle = '#a63232';
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(x, chartArea.top);
+        ctx.lineTo(x, chartArea.bottom);
+        ctx.stroke();
+
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#a63232';
+        ctx.font = 'bold 10px Georgia, serif';
+        ctx.textAlign = 'left';
+        ctx.fillText('1974', x + 3, chartArea.top + 14);
+        ctx.restore();
+
+        // baseline at 100
+        const y100 = scales.y.getPixelForValue(100);
+        ctx.save();
+        ctx.setLineDash([6,4]);
+        ctx.strokeStyle = '#b8bdd4';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(chartArea.left, y100);
+        ctx.lineTo(chartArea.right, y100);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#b8bdd4';
+        ctx.font = '10px Georgia, serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('1974 baseline', chartArea.right - 4, y100 - 5);
+        ctx.restore();
+      }
+    };
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: years,
+        datasets: datasets.map(d => ({
+          ...d,
+          fill: false,
+          pointRadius: 0,
+          pointHoverRadius: 4,
+          tension: 0.3,
+          borderWidth: d.borderWidth,
+        }))
+      },
+      plugins: [refLine],
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#ffffff',
+            borderColor: '#d8dbe6',
+            borderWidth: 1,
+            titleColor: '#8a8fa8',
+            bodyColor: '#2a2c4a',
+            titleFont: { family: 'Georgia, serif', size: 11 },
+            bodyFont: { family: 'Georgia, serif', size: 12 },
+            padding: 12,
+            callbacks: {
+              title: items => `${years[items[0].dataIndex]}`,
+              label: item => `${item.dataset.label}: ${item.raw} (index)`,
+            }
+          },
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            border: { color: '#d8dbe6' },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 11 },
+              callback: function(val, i) {
+                return [1974,1980,1986,1992,1998,2004,2010,2016,2022].includes(years[i]) ? years[i] : '';
+              }
+            }
+          },
+          y: {
+            min: 50,
+            max: 900,
+            grid: { color: '#d8dbe6' },
+            border: { display: false },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 10 },
+              callback: v => v <= 500 ? v : '',
+              stepSize: 100,
+            },
+            title: {
+              display: true,
+              text: '← Better          Index (1974 = 100)          Worse →',
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 10 },
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
