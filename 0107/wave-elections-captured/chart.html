@@ -28,7 +28,7 @@
       padding: 16px 20px;
       background: #e4e7f0;
       border-left: 3px solid #3d3f7c;
-      font-size: 13px;
+      font-size: 12px;
       color: #2a2c4a;
       line-height: 1.6;
     }
@@ -42,8 +42,9 @@
     <h2>Wave Elections Don't Change the Trajectory</h2>
     <p class="subtitle">
       Incumbency reelection rate (blue, left axis) and party-line voting as % of all votes
-      (red, right axis), 1970–2025. Wave elections — marked in grey — produce brief dips
-      in incumbency but no reversal in polarization.
+      (red, right axis), 1970–2025. Six wave elections are marked in grey — each dips
+      incumbency temporarily. None reverse the party-line trend. The dips get smaller.
+      The red line keeps climbing.
     </p>
 
     <div class="chart-wrap">
@@ -66,11 +67,24 @@
     </div>
 
     <div class="observation">
-      <strong>What to look for:</strong> The grey bands mark wave elections — 1974 (Watergate),
-      1980 (Reagan), 1994 (Republican Revolution), 2006 (Democratic wave), 2010 (Tea Party).
-      Each wave temporarily dips the blue incumbency line. None of them reverse the red
-      party-line voting trend. New members arrive. The system captures them.
-      The red line keeps climbing.
+      <strong>What to look for — four patterns:</strong>
+      <br><br>
+      <strong>1. Before 1994:</strong> Wave elections (1974, 1980) dip incumbency and
+      party-line voting moves loosely with it. Sending different people used to produce
+      different results.
+      <br><br>
+      <strong>2. The 1994 anomaly:</strong> The GOP Revolution produces a <em>spike</em> in
+      party-line voting rather than a dip. 73 new members arrived pre-organized as a
+      voting bloc. New faces. Same direction. More extreme.
+      <br><br>
+      <strong>3. Post-1994 — dips get smaller:</strong> Each subsequent wave — 2006, 2010,
+      2018 — produces a smaller incumbency dip and an immediate party-line rebound.
+      New members arrive. Something changes them quickly. The red line resumes climbing.
+      <br><br>
+      <strong>4. The lines start mirroring:</strong> In recent cycles, incumbency dips and
+      party-line spikes move in tandem — opposite directions, same moment. Both parties
+      are producing the same pattern. Sending different faces no longer changes the
+      trajectory. Something in the institution itself is shaping the behavior.
     </div>
 
     <p class="source">
@@ -100,13 +114,14 @@
                        40.0,72.8,72.6,73.4,58.6,69.8,53.1,65.3];
 
     // Wave elections — indices in years array
-    const waveYears = [1974, 1980, 1994, 2006, 2010];
+    const waveYears = [1974, 1980, 1994, 2006, 2010, 2018];
     const waveLabels = {
       1974: 'Watergate',
       1980: 'Reagan',
       1994: 'GOP Revolution',
       2006: 'Dem. Wave',
-      2010: 'Tea Party'
+      2010: 'Tea Party',
+      2018: 'Dem. Wave'
     };
 
     const canvas = document.getElementById('chart');
