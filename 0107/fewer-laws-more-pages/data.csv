@@ -1,6 +1,10 @@
-congress,years,laws_enacted,avg_pages_per_statute
-80th,1947-1948,906,2.50
-89th,1965-1966,810,3.60
-95th,1977-1978,634,8.50
-103rd,1993-1994,465,16.20
-111th,2009-2010,383,19.89
+congress,years,public_laws,total_statutes_at_large_pages,avg_pages_per_law,source_basis
+80th,1947–48,906,2236,2.5,Brookings_Table_6-4
+89th,1965–66,810,2912,3.6,Brookings_Table_6-4
+95th,1977–78,634,5403,8.52,Brookings_Table_6-4
+103rd,1993–94,465,7553,16.24,Brookings_Table_6-4
+111th,2009–10,383,7617,19.89,Brookings_Table_6-4
+115th,2017–18,442,7872,17.81,Brookings_Table_6-4
+116th,2019–20,344,8432,24.51,Brookings_Table_6-4
+117th,2021–22,362,8742,24.15,Brookings_Table_6-4
+118th,2023–24,274,4838,17.66,GPO_GovInfo_DIY

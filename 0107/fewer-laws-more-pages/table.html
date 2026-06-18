@@ -1,167 +1,87 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Legislation: Fewer Laws, More Pages — The Statecraft Blueprint</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: #eef0f5;
-      font-family: Georgia, 'Times New Roman', serif;
-      display: flex;
-      justify-content: center;
-      padding: 24px 16px;
-    }
-    .wrap { width: 100%; max-width: 820px; background: #eef0f5; padding: 36px 40px 28px; }
-    .eyebrow { font-size: 10px; letter-spacing: 0.18em; color: #a63232; text-transform: uppercase; margin-bottom: 12px; }
-    h2 { color: #2a2c4a; font-size: 20px; font-weight: normal; margin: 0 0 6px; line-height: 1.3; }
-    .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 28px; line-height: 1.5; }
-    table { width: 100%; border-collapse: collapse; }
-    thead tr { border-bottom: 2px solid #3d3f7c; }
-    thead th {
-      text-align: left;
-      font-size: 11px;
-      font-weight: normal;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #3d3f7c;
-      padding: 0 16px 12px 0;
-    }
-    thead th:last-child { text-align: right; padding-right: 0; }
-    tbody tr { border-bottom: 1px solid #d8dbe6; }
-    tbody tr:last-child { border-bottom: none; }
-    tbody td {
-      font-size: 14px;
-      color: #2a2c4a;
-      padding: 14px 16px 14px 0;
-      vertical-align: middle;
-    }
-    tbody td:last-child { text-align: right; padding-right: 0; }
-    .congress { color: #8a8fa8; font-size: 12px; }
-    .laws { font-size: 18px; font-weight: bold; color: #3d3f7c; }
-    .laws.low { color: #a63232; }
-    .pages { font-size: 18px; font-weight: bold; color: #3d3f7c; }
-    .pages.high { color: #a63232; }
-    .bar-wrap { display: flex; align-items: center; gap: 10px; }
-    .bar {
-      height: 8px;
-      background: #3d3f7c;
-      border-radius: 2px;
-      transition: width 0.3s;
-    }
-    .bar.high { background: #a63232; }
-    .note {
-      margin-top: 20px;
-      font-size: 11px;
-      color: #8a8fa8;
-      font-style: italic;
-      line-height: 1.5;
-      border-top: 1px solid #d8dbe6;
-      padding-top: 14px;
-    }
-    .source { margin-top: 10px; font-size: 10px; color: #8a8fa8; line-height: 1.5; }
-    .source a { color: #3d3f7c; }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="eyebrow">The Statecraft Blueprint</div>
-    <h2>Fewer Laws. More Pages.</h2>
-    <p class="subtitle">
-      As Congress passes less legislation, each law has grown dramatically longer.
-      Bills have become simultaneously rarer and harder to read.
-    </p>
-
-    <table>
-      <thead>
-        <tr>
-          <th>Congress</th>
-          <th>Laws Enacted</th>
-          <th colspan="2">Avg. Pages per Law</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div>80th Congress</div>
-            <div class="congress">1947–1948</div>
-          </td>
-          <td><span class="laws">906</span></td>
-          <td>
-            <div class="bar-wrap">
-              <div class="bar" style="width: 13px;"></div>
-              <span>2.5 pages</span>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div>89th Congress</div>
-            <div class="congress">1965–1966</div>
-          </td>
-          <td><span class="laws">810</span></td>
-          <td>
-            <div class="bar-wrap">
-              <div class="bar" style="width: 18px;"></div>
-              <span>3.6 pages</span>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div>95th Congress</div>
-            <div class="congress">1977–1978</div>
-          </td>
-          <td><span class="laws">634</span></td>
-          <td>
-            <div class="bar-wrap">
-              <div class="bar" style="width: 43px;"></div>
-              <span>8.5 pages</span>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div>103rd Congress</div>
-            <div class="congress">1993–1994</div>
-          </td>
-          <td><span class="laws">465</span></td>
-          <td>
-            <div class="bar-wrap">
-              <div class="bar" style="width: 81px;"></div>
-              <span>16.2 pages</span>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <div>111th Congress</div>
-            <div class="congress">2009–2010</div>
-          </td>
-          <td><span class="laws low">383</span></td>
-          <td>
-            <div class="bar-wrap">
-              <div class="bar high" style="width: 100px;"></div>
-              <span style="color:#a63232; font-weight:bold;">19.9 pages</span>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <p class="note">
-      Note: Some defenders of Congress argue that the raw decline in laws enacted reflects
-      consolidation — packing more policy into fewer, larger bills — rather than gridlock.
-      This table shows why that explanation falls short. Legislation has become both rarer
-      and more incomprehensible. That is not a sign of efficiency.
-    </p>
-
-    <p class="source">
-      Source: Congressional records; policy complexity research.
-      Full methodology: <a href="sources.md">sources.md</a> &nbsp;|&nbsp;
-      Raw data: <a href="data.csv">data.csv</a>
-    </p>
-  </div>
-</body>
-</html>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>Fewer Laws, More Pages — The Statecraft Blueprint</title><style>body{margin:0;background:#eef0f5;}.wrap{max-width:860px;margin:0 auto;}svg{width:100%;height:auto;display:block;}</style></head><body><div class="wrap"><svg viewBox="0 0 860 648" xmlns="http://www.w3.org/2000/svg" font-family="Georgia, 'Times New Roman', serif">
+<rect width="860" height="648" fill="#eef0f5"/>
+<text x="70" y="44" class="masthead">THE STATECRAFT BLUEPRINT</text>
+<text x="70" y="84" class="title">Fewer Laws. More Pages.</text>
+<text x="70" y="114" class="subtitle">As Congress passes less legislation, each law has grown far longer. Bills have become</text>
+<text x="70" y="134" class="subtitle">simultaneously rarer and harder to read.</text>
+<text x="70" y="180" class="colh">CONGRESS</text>
+<text x="430" y="180" class="colh" text-anchor="end">LAWS ENACTED</text>
+<text x="560" y="180" class="colh">AVG. PAGES PER LAW</text>
+<line x1="70" y1="192" x2="790" y2="192" class="hrule"/>
+<text x="70" y="212" class="cong">80th</text>
+<text x="70" y="227" class="yrs">1947–48</text>
+<text x="430" y="216" class="laws" text-anchor="end">906</text>
+<rect x="560" y="201" width="19.2" height="13" rx="2" fill="#3f3f71"/>
+<text x="587.2" y="212" class="pp">2.5</text>
+<line x1="70" y1="233" x2="790" y2="233" class="rowline"/>
+<text x="70" y="248" class="cong">89th</text>
+<text x="70" y="263" class="yrs">1965–66</text>
+<text x="430" y="252" class="laws" text-anchor="end">810</text>
+<rect x="560" y="237" width="27.7" height="13" rx="2" fill="#3f3f71"/>
+<text x="595.7" y="248" class="pp">3.6</text>
+<line x1="70" y1="269" x2="790" y2="269" class="rowline"/>
+<text x="70" y="284" class="cong">95th</text>
+<text x="70" y="299" class="yrs">1977–78</text>
+<text x="430" y="288" class="laws" text-anchor="end">634</text>
+<rect x="560" y="273" width="65.5" height="13" rx="2" fill="#3f3f71"/>
+<text x="633.5" y="284" class="pp">8.5</text>
+<line x1="70" y1="305" x2="790" y2="305" class="rowline"/>
+<text x="70" y="320" class="cong">103rd</text>
+<text x="70" y="335" class="yrs">1993–94</text>
+<text x="430" y="324" class="laws" text-anchor="end">465</text>
+<rect x="560" y="309" width="124.9" height="13" rx="2" fill="#3f3f71"/>
+<text x="692.9" y="320" class="pp">16.2</text>
+<line x1="70" y1="341" x2="790" y2="341" class="rowline"/>
+<text x="70" y="356" class="cong">111th</text>
+<text x="70" y="371" class="yrs">2009–10</text>
+<text x="430" y="360" class="laws" text-anchor="end">383</text>
+<rect x="560" y="345" width="153.0" height="13" rx="2" fill="#3f3f71"/>
+<text x="721.0" y="356" class="pp">19.9</text>
+<line x1="70" y1="377" x2="790" y2="377" class="rowline"/>
+<text x="70" y="392" class="cong">115th</text>
+<text x="70" y="407" class="yrs">2017–18</text>
+<text x="430" y="396" class="laws" text-anchor="end">442</text>
+<rect x="560" y="381" width="137.0" height="13" rx="2" fill="#3f3f71"/>
+<text x="705.0" y="392" class="pp">17.8</text>
+<line x1="70" y1="413" x2="790" y2="413" class="rowline"/>
+<text x="70" y="428" class="cong">116th</text>
+<text x="70" y="443" class="yrs">2019–20</text>
+<text x="430" y="432" class="laws" text-anchor="end">344</text>
+<rect x="560" y="417" width="188.5" height="13" rx="2" fill="#9a3324"/>
+<text x="756.5" y="428" class="pp-peak">24.5</text>
+<line x1="70" y1="449" x2="790" y2="449" class="rowline"/>
+<text x="70" y="464" class="cong">117th</text>
+<text x="70" y="479" class="yrs">2021–22</text>
+<text x="430" y="468" class="laws" text-anchor="end">362</text>
+<rect x="560" y="453" width="185.8" height="13" rx="2" fill="#3f3f71"/>
+<text x="753.8" y="464" class="pp">24.1</text>
+<line x1="70" y1="485" x2="790" y2="485" class="rowline"/>
+<text x="70" y="500" class="cong-prov">118th*</text>
+<text x="70" y="515" class="yrs">2023–24</text>
+<text x="430" y="504" class="laws" text-anchor="end">274</text>
+<rect x="560" y="489" width="135.8" height="13" rx="2" fill="#b9a9bf"/>
+<text x="703.8" y="500" class="pp-prov">17.7</text>
+<line x1="70" y1="516" x2="790" y2="516" class="hrule"/>
+<text x="70" y="534" class="foot">The decline in laws is sometimes read as leaner, simpler government. The page counts show otherwise:</text>
+<text x="70" y="552" class="foot">roughly 7–10&#215; longer than in the late 1940s. Whatever that is, it is not simpler.</text>
+<text x="70" y="576" class="footnote">* 118th pages compiled from GPO GovInfo (Brookings figures pending); that Congress was unusually unproductive. Raw page</text>
+<text x="70" y="592" class="footnote">counts understate the trend &#8212; a modern page of statute holds an estimated 30–40% more text than one printed before 1983.</text>
+<text x="790" y="634" class="src" text-anchor="end">Source: Brookings Institution, Vital Statistics on Congress, Table 6-4 (Statutes at Large pages); 118th from GPO GovInfo &#183; The Statecraft Blueprint</text>
+<style>
+.masthead{fill:#9a3324;font-size:14px;letter-spacing:2.5px;font-weight:bold;}
+.title{fill:#2b2c41;font-size:28px;font-weight:bold;}
+.subtitle{fill:#8d8f9e;font-size:14px;}
+.colh{fill:#8d8f9e;font-size:12px;letter-spacing:1px;}
+.hrule{stroke:#2b2c41;stroke-width:1.4;}
+.rowline{stroke:#d7dae6;stroke-width:1;}
+.cong{fill:#2b2c41;font-size:18px;font-weight:bold;}
+.cong-prov{fill:#6b6c80;font-size:18px;font-weight:bold;}
+.yrs{fill:#8d8f9e;font-size:11px;}
+.laws{fill:#3f3f71;font-size:20px;font-weight:bold;}
+.pp{fill:#3f3f71;font-size:15px;}
+.pp-peak{fill:#9a3324;font-size:15px;font-weight:bold;}
+.pp-prov{fill:#6b6c80;font-size:15px;}
+.foot{fill:#5c5e74;font-size:13px;font-style:italic;}
+.footnote{fill:#8d8f9e;font-size:11px;}
+.src{fill:#9a9cab;font-size:10px;}
+</style></svg></div></body></html>
