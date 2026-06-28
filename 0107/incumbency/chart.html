@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>We Keep Sending the Same People Back — The Statecraft Blueprint</title>
+  <title>Share of U.S. House Incumbents Reelected, 1970–2024 — The Statecraft Blueprint</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,10 +33,10 @@
 <body>
   <div class="wrap">
     <div class="eyebrow">The Statecraft Blueprint</div>
-    <h2>We Keep Sending the Same People Back</h2>
+    <h2>Share of U.S. House Incumbents Reelected, 1970&ndash;2024</h2>
     <p class="subtitle">
-      Percentage of U.S. House incumbents who sought reelection and won, 1970–2024.
-      Even in the worst "wave" elections, fewer than 15% of incumbents lost their seats.
+      Among U.S. House incumbents who sought reelection, the share who won, 1970&ndash;2024.
+      Even in the deepest dips &mdash; 1974, 1992, 2010 &mdash; at least 85% kept their seats.
     </p>
 
     <div class="chart-wrap">
@@ -45,8 +45,8 @@
 
     <div class="callouts">
       <div class="callout">
-        <div class="callout-num" style="color:#3d3f7c">93%</div>
-        <div class="callout-label">average House incumbency<br>reelection rate since 1970</div>
+        <div class="callout-num" style="color:#3d3f7c">94%</div>
+        <div class="callout-label">average House reelection rate<br>among those who ran, 1970&ndash;2024</div>
       </div>
       <div class="callout">
         <div class="callout-num" style="color:#3d3f7c">85%</div>
@@ -57,8 +57,8 @@
         <div class="callout-label">reelection rate in 2024 —<br>near the all-time high</div>
       </div>
       <div class="callout">
-        <div class="callout-num" style="color:#a63232">15%</div>
-        <div class="callout-label">maximum share of incumbents<br>ever replaced in a single election</div>
+        <div class="callout-num" style="color:#3d3f7c">25 of 28</div>
+        <div class="callout-label">elections since 1970 that kept<br>90%+ of incumbents in office</div>
       </div>
     </div>
 
@@ -78,26 +78,26 @@
       { year: 1974, rate: 87.7, wave: "Watergate" },
       { year: 1976, rate: 95.8, wave: null },
       { year: 1978, rate: 93.7, wave: null },
-      { year: 1980, rate: 90.7, wave: "Reagan wave" },
+      { year: 1980, rate: 90.7, wave: null },
       { year: 1982, rate: 90.1, wave: null },
       { year: 1984, rate: 95.4, wave: null },
       { year: 1986, rate: 97.7, wave: null },
       { year: 1988, rate: 98.3, wave: null },
       { year: 1990, rate: 96.1, wave: null },
       { year: 1992, rate: 88.3, wave: "Redistricting" },
-      { year: 1994, rate: 90.2, wave: "GOP Revolution" },
+      { year: 1994, rate: 90.2, wave: null },
       { year: 1996, rate: 94.0, wave: null },
       { year: 1998, rate: 98.3, wave: null },
       { year: 2000, rate: 97.8, wave: null },
       { year: 2002, rate: 95.9, wave: null },
       { year: 2004, rate: 97.8, wave: null },
-      { year: 2006, rate: 94.0, wave: "Dem. wave" },
+      { year: 2006, rate: 94.0, wave: null },
       { year: 2008, rate: 94.3, wave: null },
       { year: 2010, rate: 85.4, wave: "Tea Party" },
       { year: 2012, rate: 91.0, wave: null },
       { year: 2014, rate: 95.4, wave: null },
       { year: 2016, rate: 96.7, wave: null },
-      { year: 2018, rate: 91.3, wave: "Dem. wave" },
+      { year: 2018, rate: 91.3, wave: null },
       { year: 2020, rate: 96.3, wave: null },
       { year: 2022, rate: 94.4, wave: null },
       { year: 2024, rate: 97.1, wave: null },
@@ -124,7 +124,7 @@
       id: 'avgLine',
       afterDraw(chart) {
         const { ctx, chartArea, scales } = chart;
-        const y = scales.y.getPixelForValue(93);
+        const y = scales.y.getPixelForValue(94);
 
         ctx.save();
         ctx.setLineDash([6, 4]);
@@ -139,7 +139,7 @@
         ctx.fillStyle = '#b8bdd4';
         ctx.font = '10px Georgia, serif';
         ctx.textAlign = 'right';
-        ctx.fillText('93% avg.', chartArea.right - 4, y - 5);
+        ctx.fillText('94% avg.', chartArea.right - 4, y - 5);
         ctx.restore();
       }
     };
