@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Executive Orders Get Heavier When Congress Locks Up — The Statecraft Blueprint</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #eef0f5;
+      font-family: Georgia, 'Times New Roman', serif;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    .wrap { width: 100%; max-width: 820px; background: #eef0f5; padding: 36px 40px 28px; }
+    .eyebrow { font-size: 10px; letter-spacing: 0.18em; color: #a63232; text-transform: uppercase; margin-bottom: 12px; }
+    h2 { color: #2a2c4a; font-size: 20px; font-weight: normal; margin: 0 0 6px; line-height: 1.3; }
+    .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 20px; line-height: 1.5; }
+    .context-box {
+      background: #e4e7f0;
+      border-left: 3px solid #3d3f7c;
+      padding: 14px 18px;
+      font-size: 13px;
+      color: #2a2c4a;
+      margin-bottom: 20px;
+      line-height: 1.5;
+    }
+    .chart-wrap { position: relative; height: 380px; }
+    .legend { display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #8a8fa8; }
+    .legend-swatch { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
+    .callouts { display: flex; margin-top: 24px; border-top: 1px solid #d8dbe6; padding-top: 20px; flex-wrap: wrap; }
+    .callout { flex: 1; min-width: 140px; padding-right: 20px; border-right: 1px solid #d8dbe6; }
+    .callout:last-child { border-right: none; }
+    .callout + .callout { padding-left: 20px; }
+    .callout-num { font-size: 26px; font-weight: bold; line-height: 1; letter-spacing: -0.02em; }
+    .callout-label { font-size: 11px; color: #8a8fa8; margin-top: 5px; line-height: 1.4; }
+    .source { margin-top: 16px; font-size: 10px; color: #8a8fa8; line-height: 1.5; border-top: 1px solid #d8dbe6; padding-top: 12px; }
+    .source a { color: #3d3f7c; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">The Statecraft Blueprint</div>
+    <h2>Executive Orders Get Heavier When Congress Locks Up</h2>
+    <p class="subtitle">
+      Mean EO structural weight vs. Binder's gridlock score, 80th&ndash;117th Congress (1947&ndash;2022),
+      both indexed to their 1947 value = 100 (r = 0.62 on the raw series). The two measures move
+      together for most of the postwar era &mdash; but the pattern breaks in the most recent Congresses.
+    </p>
+
+    <div class="context-box">
+      <strong>Watch the last three points:</strong> EO structural weight keeps climbing to record highs
+      through the 117th Congress (2021&ndash;22) even as gridlock in that same Congress falls to its
+      lowest level since 2010 &mdash; consistent with Binder's own account of 2021&ndash;22 as one of the
+      least-gridlocked Congresses since Obama's first term. That's the first real divergence in this series.
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="chart"></canvas>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><div class="legend-swatch" style="background:#3d3f7c;"></div>Mean EO structural weight (indexed)</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#a63232;"></div>Binder gridlock score (indexed)</div>
+    </div>
+
+    <div class="callouts">
+      <div class="callout">
+        <div class="callout-num" style="color:#3d3f7c">439</div>
+        <div class="callout-label">peak EO structural weight index<br>117th Congress (2021&ndash;22)</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#a63232">282</div>
+        <div class="callout-label">peak gridlock index<br>113th Congress (2013&ndash;14)</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#3d3f7c">0.62</div>
+        <div class="callout-label">Pearson correlation<br>between the two raw series, 1947&ndash;2022</div>
+      </div>
+    </div>
+
+    <p class="source">
+      Sources: EO structural weight scoring (scores_by_congress.csv); Sarah Binder, "Challenges of
+      Legislating in Partisan Times," Ch. 8 in <em>Congress Reconsidered</em>, 13th ed. (Washington, DC:
+      CQ Press, 2025), Figure 8-2 (gridlock scores 1947-2022.xlsx, grid4 / NYT&ge;4 threshold).
+      Full data and methodology: <a href="sources.md">sources.md</a> &nbsp;|&nbsp;
+      Raw data: <a href="data.csv">data.csv</a>
+    </p>
+  </div>
+
+  <script>
+    const data = [
+      {x:1947,c:80,sw:100.0,gl:100.0},{x:1949,c:81,sw:117.9,gl:142.0},{x:1951,c:82,sw:186.6,gl:153.3},
+      {x:1953,c:83,sw:120.0,gl:134.2},{x:1955,c:84,sw:68.2,gl:183.3},{x:1957,c:85,sw:98.4,gl:138.0},
+      {x:1959,c:86,sw:53.6,gl:181.6},{x:1961,c:87,sw:78.6,gl:155.4},{x:1963,c:88,sw:84.4,gl:104.5},
+      {x:1965,c:89,sw:154.4,gl:109.5},{x:1967,c:90,sw:131.5,gl:119.8},{x:1969,c:91,sw:135.0,gl:147.4},
+      {x:1971,c:92,sw:149.2,gl:149.1},{x:1973,c:93,sw:156.9,gl:165.7},{x:1975,c:94,sw:121.1,gl:162.6},
+      {x:1977,c:95,sw:109.7,gl:112.7},{x:1979,c:96,sw:159.2,gl:197.8},{x:1981,c:97,sw:188.5,gl:214.6},
+      {x:1983,c:98,sw:134.8,gl:171.8},{x:1985,c:99,sw:221.4,gl:127.8},{x:1987,c:100,sw:230.5,gl:159.7},
+      {x:1989,c:101,sw:262.3,gl:141.2},{x:1991,c:102,sw:251.0,gl:250.0},{x:1993,c:103,sw:303.0,gl:215.6},
+      {x:1995,c:104,sw:225.0,gl:161.4},{x:1997,c:105,sw:191.2,gl:230.0},{x:1999,c:106,sw:287.7,gl:273.8},
+      {x:2001,c:107,sw:307.5,gl:131.4},{x:2003,c:108,sw:265.2,gl:231.6},{x:2005,c:109,sw:241.8,gl:191.6},
+      {x:2007,c:110,sw:280.4,gl:185.1},{x:2009,c:111,sw:335.2,gl:167.7},{x:2011,c:112,sw:381.9,gl:270.6},
+      {x:2013,c:113,sw:343.3,gl:282.4},{x:2015,c:114,sw:300.3,gl:237.3},{x:2017,c:115,sw:337.0,gl:237.6},
+      {x:2019,c:116,sw:387.9,gl:249.1},{x:2021,c:117,sw:439.0,gl:184.6},
+    ];
+
+    const labels = data.map(d => d.x);
+    const swValues = data.map(d => d.sw);
+    const glValues = data.map(d => d.gl);
+
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+
+    const referenceLines = {
+      id: 'referenceLines',
+      afterDraw(chart) {
+        const { ctx, chartArea, scales } = chart;
+        const y100 = scales.y.getPixelForValue(100);
+        ctx.save();
+        ctx.setLineDash([6, 4]);
+        ctx.strokeStyle = '#b8bdd4';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(chartArea.left, y100);
+        ctx.lineTo(chartArea.right, y100);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#b8bdd4';
+        ctx.font = '10px Georgia, serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('1947 baseline', chartArea.right - 4, y100 - 5);
+        ctx.restore();
+      }
+    };
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels,
+        datasets: [
+          {
+            label: 'EO structural weight (indexed)',
+            data: swValues,
+            borderColor: '#3d3f7c',
+            borderWidth: 2,
+            fill: false,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: '#3d3f7c',
+            pointHoverBorderColor: '#eef0f5',
+            pointHoverBorderWidth: 2,
+            tension: 0.3,
+          },
+          {
+            label: 'Gridlock score (indexed)',
+            data: glValues,
+            borderColor: '#a63232',
+            borderWidth: 2,
+            borderDash: [5, 3],
+            fill: false,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: '#a63232',
+            pointHoverBorderColor: '#eef0f5',
+            pointHoverBorderWidth: 2,
+            tension: 0.3,
+          }
+        ]
+      },
+      plugins: [referenceLines],
+      options: {
+        responsive: true,
+        interaction: { mode: 'index', intersect: false },
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#ffffff',
+            borderColor: '#d8dbe6',
+            borderWidth: 1,
+            titleColor: '#8a8fa8',
+            bodyColor: '#2a2c4a',
+            titleFont: { family: 'Georgia, serif', size: 11 },
+            bodyFont: { family: 'Georgia, serif', size: 13, weight: 'bold' },
+            padding: 12,
+            callbacks: {
+              title: items => `${labels[items[0].dataIndex]} (${data[items[0].dataIndex].c}th Congress)`,
+              label: item => `${item.dataset.label}: ${item.raw}`,
+            }
+          },
+        },
+        scales: {
+          x: {
+            grid: { display: false },
+            border: { color: '#d8dbe6' },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 11 },
+              callback: function (val, i) {
+                return [1947,1957,1967,1977,1987,1997,2007,2015,2021].includes(labels[i]) ? labels[i] : '';
+              }
+            }
+          },
+          y: {
+            min: 0,
+            max: 470,
+            grid: { color: '#d8dbe6' },
+            border: { display: false },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 11 },
+              callback: v => v,
+              stepSize: 100,
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
