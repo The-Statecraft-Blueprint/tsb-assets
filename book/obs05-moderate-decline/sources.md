@@ -43,8 +43,8 @@ The percentage of U.S. House members classified as "moderate" by DW-NOMINATE sco
   - Current trend: approximately 7% (Pew 2022 and subsequent research)
 - **What counts as "moderate":** |DW-NOMINATE dim1| < 0.25. This threshold was chosen by Voteview and is used consistently throughout the literature.
 - **Party coding:** Only Democrats (ICPSR 100) and Republicans (ICPSR 200) included. Independents, third-party members excluded.
-- **The 1974 inflection:** The chart shows the mid-1970s as the beginning of the accelerating decline. This aligns with the transparency reform sequence (1970-1974 LRA/FECA). Poole & Rosenthal note: "Polarization was then fairly stable until the late 1970s and has been increasing steadily."
-- **The 1994 acceleration:** The Republican Revolution (104th Congress) marks a visible acceleration in the decline of moderates, corresponding to the discharge petition transparency reform of 1993.
+- **The 1974 inflection (marker removed July 2026 — see Corrections):** The chart previously drew a reference line at 1974, marking the mid-1970s as the beginning of the accelerating decline and tying it to the transparency reform sequence (1970-1974 LRA/FECA) — the argument made explicitly in the Convergence synthesis chart (`book/convergence`), not yet in this Chapter 2 observation chart. The line was removed for that reason; the research observation itself is still valid and worth keeping here: Poole & Rosenthal note "Polarization was then fairly stable until the late 1970s and has been increasing steadily," which is consistent with the mid-1970s inflection visible in the data even without a drawn marker.
+- **The 1994 acceleration:** The Republican Revolution (104th Congress) marks a visible acceleration in the decline of moderates, corresponding to the discharge petition transparency reform of 1993. (This marker is unaffected by the 1974 removal — it isn't part of the 1970s reform sequence in question.)
 
 ---
 
@@ -57,10 +57,19 @@ The percentage of U.S. House members classified as "moderate" by DW-NOMINATE sco
 
 ---
 
+## Corrections
+
+| Date | Change |
+|------|--------|
+| 2026-07-17 | Removed the 1974 reference-line annotation from the chart (the 1994 marker is unaffected and remains). It was built for the earlier essay (#107, "It Begins With Why?"), which had already named the FECA/transparency-reform argument; this chart now supports Chapter 2 (observation), which hasn't made that argument yet, so the marker was visually importing an unmade case. Same fix already applied to the Gridlock (`obs01-unresolved-agenda`), Party-Line Voting (`obs04-party-line-voting`), Legislation Decline (`obs01-legislative-decline`), and Congressional Approval (`approval-ratings`) charts, for the same reason. The Convergence synthesis chart intentionally keeps its 1974 indexing, since that chart is where the reform argument is actually made. |
+
+---
+
 ## Version History
 
 | Date | Change | Author |
 |------|--------|--------|
 | May 2026 | Initial publication | TSB |
+| July 2026 | Removed chart-specific 1974 marker; kept the 1994 marker (full detail in Corrections above) | TSB |
 
 *If you believe a data point is incorrect, please open an issue at https://github.com/The-Statecraft-Blueprint/tsb-assets or contact us at statecraftblueprint.org.*

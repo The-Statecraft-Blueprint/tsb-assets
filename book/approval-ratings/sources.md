@@ -52,10 +52,18 @@ The chart shows the percentage of Americans who approve of "the way Congress is 
 ## Methodology Notes
 
 - **Annual averages vs. point readings:** Where Gallup publishes annual averages, those are used. For some years only individual poll readings are available; these are noted in data.csv.
-- **The 1974 start date:** Gallup began tracking congressional approval in 1974 — the same year the FECA Amendments completed the 1970–1974 transparency reform sequence. This is not a coincidence the essay argues; it is the structural argument.
+- **The 1974 start date:** Gallup began tracking congressional approval in 1974 — the same year the FECA Amendments completed the 1970–1974 transparency reform sequence. That timing connection is the argument made explicitly in the Convergence synthesis chart (`book/convergence`), not in this Chapter 2 observation chart — the chart's 1974 reference-line marker was removed for that reason (July 2026 — see Corrections). On this series 1974 is also simply the first year Gallup data exists, so the coincidence isn't visually distinguishable from an ordinary series start.
 - **The 9/11 spike:** The October 2001 reading of 84% is a genuine outlier driven by national crisis unity. The annual average for 2001 was approximately 56%. Both are noted in data.csv.
 - **Event-driven fluctuations:** Approval spikes when a new party takes control of Congress (honeymoon effect) and drops sharply during shutdowns, scandals, and economic crises. These fluctuations are real but temporary — the long-run trend is what matters.
 - **The 28% average:** Gallup's own summary: approval has averaged 28% since 1974, with 65% average disapproval. This is the number to cite in the essay.
+
+---
+
+## Corrections
+
+| Date | Change |
+|------|--------|
+| 2026-07-17 | Removed the 1974 reference-line annotation from the chart (the 28% long-run-average reference line is unaffected and remains). It was built for the earlier essay (#107, "It Begins With Why?"), which had already named the FECA/transparency-reform argument; this chart now supports Chapter 2 (observation), which hasn't made that argument yet, so the marker was visually importing an unmade case. Same fix already applied to the Gridlock (`obs01-unresolved-agenda`), Party-Line Voting (`obs04-party-line-voting`), Legislation Decline (`obs01-legislative-decline`), and Moderate Decline (`obs05-moderate-decline`) charts, for the same reason. The Convergence synthesis chart intentionally keeps its 1974 indexing, since that chart is where the reform argument is actually made. |
 
 ---
 
@@ -64,5 +72,6 @@ The chart shows the percentage of Americans who approve of "the way Congress is 
 | Date | Change | Author |
 |------|--------|--------|
 | May 2026 | Initial publication | TSB |
+| July 2026 | Removed chart-specific 1974 marker; kept the 28% average reference line (full detail in Corrections above) | TSB |
 
 *If you believe a data point is incorrect, please open an issue at https://github.com/The-Statecraft-Blueprint/tsb-assets or contact us at statecraftblueprint.org.*

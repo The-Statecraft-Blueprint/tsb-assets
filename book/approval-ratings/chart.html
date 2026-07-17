@@ -138,28 +138,11 @@
     grad.addColorStop(0, 'rgba(61,63,124,0.12)');
     grad.addColorStop(1, 'rgba(61,63,124,0.01)');
 
-    // Manual annotation plugin
+    // Manual annotation plugin -- 28% long-run average reference line
     const annotations = {
       id: 'annotations',
       afterDraw(chart) {
         const { ctx, chartArea, scales } = chart;
-
-        // 1974 reference line
-        const x1974 = scales.x.getPixelForValue(0); // index 0 = 1974
-        ctx.save();
-        ctx.setLineDash([4, 3]);
-        ctx.strokeStyle = '#a63232';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(x1974, chartArea.top);
-        ctx.lineTo(x1974, chartArea.bottom);
-        ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.fillStyle = '#a63232';
-        ctx.font = '9px Georgia, serif';
-        ctx.textAlign = 'left';
-        ctx.fillText('1974', x1974 + 3, chartArea.top + 12);
-        ctx.restore();
 
         // 28% average line
         const yAvg = scales.y.getPixelForValue(28);

@@ -34,7 +34,7 @@ The chart shows the raw count of public laws per two-year Congress, not the enac
 - **Unit of measurement:** Each data point represents one two-year Congress (e.g., the 91st Congress covers 1969–1970).
 - **Public laws only:** Private laws are excluded throughout for consistency.
 - **The omnibus caveat:** The raw count decline is partially explained by legislative consolidation — Congress has increasingly packaged multiple policy items into large omnibus bills rather than passing individual standalone legislation. This means the raw count decline somewhat overstates the decline in legislative activity. However, this caveat does not invalidate the trend; it reframes it. Average pages per statute rose from approximately 2.5 pages (80th Congress, 1947–48) to nearly 20 pages (111th Congress, 2009–10), meaning legislation became simultaneously rarer and more incomprehensible. The omnibus shift is itself evidence of dysfunction, not evidence of efficiency.
-- **The 1974 reference line:** Marks the completion of the 1970–1974 transparency reform sequence. Not a data point — an editorial annotation marking the structural inflection point argued in the essay.
+- **The 1974 reference line has been removed (July 2026 — see Corrections).** It was originally built to mark the completion of the 1970–1974 transparency reform sequence — the "coercion loop" argument made explicitly in the Convergence synthesis chart (`book/convergence`). This chart now serves Chapter 2 as a plain observation (raw law count decline), and Chapter 2 has not yet named that reform argument, so the marker was visually importing a case this chart doesn't make on its own. The underlying research connection is still real and still lives in the Convergence chart's sources.md.
 
 ---
 
@@ -46,10 +46,19 @@ The chart shows the raw count of public laws per two-year Congress, not the enac
 
 ---
 
+## Corrections
+
+| Date | Change |
+|------|--------|
+| 2026-07-17 | Removed the 1974 reference-line annotation from the chart. It was built for the earlier essay (#107, "It Begins With Why?"), which had already named the FECA/transparency-reform argument; this chart now supports Chapter 2 (observation), which hasn't made that argument yet, so the marker was visually importing an unmade case. Same fix already applied to the Gridlock (`obs01-unresolved-agenda`), Party-Line Voting (`obs04-party-line-voting`), and Moderate Decline (`obs05-moderate-decline`) charts, and to the Congressional Approval chart (`approval-ratings`), for the same reason. The Convergence synthesis chart intentionally keeps its 1974 indexing, since that chart is where the reform argument is actually made. |
+
+---
+
 ## Version History
 
 | Date | Change | Author |
 |------|--------|--------|
 | May 2026 | Initial publication | TSB |
+| July 2026 | Removed chart-specific 1974 marker (full detail in Corrections above) | TSB |
 
 *If you believe a data point is incorrect, please open an issue at https://github.com/The-Statecraft-Blueprint/tsb-assets or contact us at statecraftblueprint.org. We will review, correct if warranted, and document the change in this version history.*

@@ -92,9 +92,6 @@
       383,283,296,329,442,344,362,274
     ];
 
-    // Index of 93rd Congress (1973-74) — where 1974 reforms land
-    const idx1974 = 2;
-
     const canvas = document.getElementById('chart');
     const ctx = canvas.getContext('2d');
 
@@ -165,34 +162,6 @@
             }
           }
         }
-      }
-    });
-
-    // Draw 1974 annotation manually after chart renders
-    // (chartjs-plugin-annotation not loaded; using afterRender hack)
-    Chart.register({
-      id: 'verticalLine1974',
-      afterDraw(chart) {
-        const { ctx, chartArea, scales } = chart;
-        // Find x position between index 2 (93rd) and 3 (94th)
-        const x0 = scales.x.getPixelForValue(2);
-        const x1 = scales.x.getPixelForValue(3);
-        const xMid = (x0 + x1) / 2;
-
-        ctx.save();
-        ctx.setLineDash([4, 3]);
-        ctx.strokeStyle = '#a63232';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(xMid, chartArea.top);
-        ctx.lineTo(xMid, chartArea.bottom);
-        ctx.stroke();
-
-        ctx.setLineDash([]);
-        ctx.fillStyle = '#a63232';
-        ctx.font = '10px Georgia, serif';
-        ctx.fillText('1974', xMid + 4, chartArea.top + 14);
-        ctx.restore();
       }
     });
   </script>

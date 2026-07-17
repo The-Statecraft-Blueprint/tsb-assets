@@ -97,14 +97,13 @@
     grad.addColorStop(0, 'rgba(61,63,124,0.12)');
     grad.addColorStop(1, 'rgba(61,63,124,0.01)');
 
-    // Manual annotation plugin for 1974 and 1994 markers
+    // Manual annotation plugin for the 1994 marker
     const annotations = {
       id: 'annotations',
       afterDraw(chart) {
         const { ctx, chartArea, scales } = chart;
 
         const markers = [
-          { year: 1974, label: '1974' },
           { year: 1995, label: '1994' },
         ];
 
