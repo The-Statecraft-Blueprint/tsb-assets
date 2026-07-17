@@ -20,8 +20,8 @@
     h2 { color: #2a2c4a; font-size: 20px; font-weight: normal; margin: 0 0 6px; line-height: 1.3; }
     .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 28px; line-height: 1.5; }
     .chart-wrap { position: relative; height: 360px; }
-    .callouts { display: flex; margin-top: 24px; border-top: 1px solid #d8dbe6; padding-top: 20px; }
-    .callout { flex: 1; padding-right: 20px; border-right: 1px solid #d8dbe6; }
+    .callouts { display: flex; margin-top: 24px; border-top: 1px solid #d8dbe6; padding-top: 20px; flex-wrap: wrap; }
+    .callout { flex: 1; min-width: 160px; padding-right: 20px; border-right: 1px solid #d8dbe6; }
     .callout:last-child { border-right: none; }
     .callout + .callout { padding-left: 20px; }
     .callout-num { font-size: 26px; font-weight: bold; line-height: 1; letter-spacing: -0.02em; }
@@ -46,28 +46,27 @@
 
     <div class="callouts">
       <div class="callout">
-        <div class="callout-num" style="color:#3d3f7c">39%</div>
+        <div class="callout-num" style="color:#3d3f7c">40%</div>
         <div class="callout-label">of House members were<br>moderates in 1971</div>
       </div>
       <div class="callout">
-        <div class="callout-num" style="color:#a63232">7%</div>
-        <div class="callout-label">of House members are<br>moderates today</div>
+        <div class="callout-num" style="color:#a63232">9%</div>
+        <div class="callout-label">of House members are<br>moderates today (119th Congress,<br>provisional)</div>
       </div>
       <div class="callout">
-        <div class="callout-num" style="color:#3d3f7c">~0</div>
-        <div class="callout-label">Republicans more liberal than<br>the most conservative Democrat</div>
-      </div>
-      <div class="callout">
-        <div class="callout-num" style="color:#a63232">50 yrs</div>
-        <div class="callout-label">of uninterrupted decline —<br>no reversal in any Congress</div>
+        <div class="callout-num" style="color:#3d3f7c">0</div>
+        <div class="callout-label">Republicans more liberal than the<br>most conservative Democrat —<br>House overlap ended 2002,<br>Senate overlap ended 2004</div>
       </div>
     </div>
 
     <p class="source">
       Source: Voteview/Poole &amp; Rosenthal, DW-NOMINATE Congressional Roll-Call Votes Database
-      (voteview.com). Moderates defined as members with |DW-NOMINATE dim1 score| &lt; 0.25,
-      the standard Voteview threshold. Intermediate values interpolated from published anchor
-      points; see sources for methodology.
+      (voteview.com), <code>HSall_members.csv</code>. Moderates defined as members with
+      |DW-NOMINATE dim1 score| &lt; 0.25, the standard Voteview threshold; each point is calculated
+      directly from that Congress's member-level scores, not interpolated. Party-overlap finding:
+      Pew Research Center, "The Polarization in Today's Congress Has Roots That Go Back Decades"
+      (March 2022). 119th Congress figures are provisional (Congress still in session as of this
+      chart's last update).
       Full methodology: <a href="sources.md">sources.md</a> &nbsp;|&nbsp;
       Raw data: <a href="data.csv">data.csv</a>
     </p>
@@ -75,16 +74,16 @@
 
   <script>
     const data = [
-      {year:1971,pct:38.7},{year:1973,pct:36.2},{year:1975,pct:33.8},
-      {year:1977,pct:31.4},{year:1979,pct:28.9},{year:1981,pct:26.4},
-      {year:1983,pct:24.6},{year:1985,pct:22.8},{year:1987,pct:21.0},
-      {year:1989,pct:19.5},{year:1991,pct:18.1},{year:1993,pct:16.8},
-      {year:1995,pct:15.4},{year:1997,pct:14.1},{year:1999,pct:13.0},
-      {year:2001,pct:12.1},{year:2003,pct:11.3},{year:2005,pct:10.7},
-      {year:2007,pct:10.2},{year:2009,pct:9.8},{year:2011,pct:9.3},
-      {year:2013,pct:8.8},{year:2015,pct:8.4},{year:2017,pct:8.0},
-      {year:2019,pct:7.7},{year:2021,pct:7.4},{year:2023,pct:7.1},
-      {year:2025,pct:6.9},
+      {year:1971,pct:40.1},{year:1973,pct:37.6},{year:1975,pct:35.6},
+      {year:1977,pct:36.5},{year:1979,pct:34.6},{year:1981,pct:34.3},
+      {year:1983,pct:31.7},{year:1985,pct:30.5},{year:1987,pct:31.3},
+      {year:1989,pct:31.9},{year:1991,pct:31.6},{year:1993,pct:27.6},
+      {year:1995,pct:19.8},{year:1997,pct:15.6},{year:1999,pct:15.8},
+      {year:2001,pct:14.7},{year:2003,pct:13.4},{year:2005,pct:12.6},
+      {year:2007,pct:13.8},{year:2009,pct:16.5},{year:2011,pct:8.8},
+      {year:2013,pct:8.8},{year:2015,pct:7.9},{year:2017,pct:7.8},
+      {year:2019,pct:9.8},{year:2021,pct:8.4},{year:2023,pct:7.8},
+      {year:2025,pct:8.7},
     ];
 
     const labels = data.map(d => d.year);
@@ -96,42 +95,6 @@
     const grad = ctx.createLinearGradient(0, 0, 0, 360);
     grad.addColorStop(0, 'rgba(61,63,124,0.12)');
     grad.addColorStop(1, 'rgba(61,63,124,0.01)');
-
-    // Manual annotation plugin for the 1994 marker
-    const annotations = {
-      id: 'annotations',
-      afterDraw(chart) {
-        const { ctx, chartArea, scales } = chart;
-
-        const markers = [
-          { year: 1995, label: '1994' },
-        ];
-
-        markers.forEach(m => {
-          // find closest index
-          const idx = labels.indexOf(labels.reduce((prev, curr) =>
-            Math.abs(curr - m.year) < Math.abs(prev - m.year) ? curr : prev
-          ));
-          const x = scales.x.getPixelForValue(idx);
-
-          ctx.save();
-          ctx.setLineDash([4, 3]);
-          ctx.strokeStyle = '#a63232';
-          ctx.lineWidth = 1.5;
-          ctx.beginPath();
-          ctx.moveTo(x, chartArea.top);
-          ctx.lineTo(x, chartArea.bottom);
-          ctx.stroke();
-
-          ctx.setLineDash([]);
-          ctx.fillStyle = '#a63232';
-          ctx.font = '9px Georgia, serif';
-          ctx.textAlign = 'center';
-          ctx.fillText(m.label, x, chartArea.top + 12);
-          ctx.restore();
-        });
-      }
-    };
 
     new Chart(ctx, {
       type: 'line',
@@ -151,7 +114,6 @@
           tension: 0.3,
         }]
       },
-      plugins: [annotations],
       options: {
         responsive: true,
         interaction: { mode: "index", intersect: false },
