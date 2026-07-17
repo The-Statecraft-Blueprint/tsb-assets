@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 860 656" xmlns="http://www.w3.org/2000/svg" font-family="Georgia, 'Times New Roman', 'Liberation Serif', serif">
+<rect width="860" height="656" fill="#eef0f5"/>
+
+<text x="70" y="40" class="masthead">THE STATECRAFT BLUEPRINT</text>
+<text x="70" y="80" class="title">What Counts as a &#8220;Party-Line Vote&#8221;</text>
+<text x="70" y="106" class="subtitle">The test isn&#8217;t unanimity within a party &#8212; it&#8217;s whether each party&#8217;s majority lands on opposite sides.</text>
+<text x="70" y="124" class="subtitle2">Illustrative schematic &#8212; not real vote data.</text>
+
+<!-- legend -->
+<circle cx="76" cy="148" r="5" fill="#3f3f71"/>
+<text x="88" y="152" class="legend">Voted Yea</text>
+<circle cx="180" cy="148" r="5" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<text x="192" y="152" class="legend">Voted Nay</text>
+<text x="320" y="152" class="legendnote">(20 dots = one illustrative party bloc &#8212; not a real chamber)</text>
+
+<!-- panel headers -->
+<text x="70" y="180" class="panelhead-red">PARTY-LINE VOTE</text>
+<text x="450" y="180" class="panelhead-navy">BIPARTISAN VOTE</text>
+
+<!-- party labels -->
+<text x="115" y="202" class="partylabel" text-anchor="middle">PARTY A</text>
+<text x="275" y="202" class="partylabel" text-anchor="middle">PARTY B</text>
+<text x="495" y="202" class="partylabel" text-anchor="middle">PARTY A</text>
+<text x="655" y="202" class="partylabel" text-anchor="middle">PARTY B</text>
+
+<!-- dot grids -->
+<circle cx="90" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="107" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="124" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="141" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="90" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="107" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="124" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="141" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="90" cy="252" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="107" cy="252" r="6" fill="#3f3f71"/>
+<circle cx="124" cy="252" r="6" fill="#3f3f71"/>
+<circle cx="141" cy="252" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="90" cy="269" r="6" fill="#3f3f71"/>
+<circle cx="107" cy="269" r="6" fill="#3f3f71"/>
+<circle cx="124" cy="269" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="141" cy="269" r="6" fill="#3f3f71"/>
+<circle cx="90" cy="286" r="6" fill="#3f3f71"/>
+<circle cx="107" cy="286" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="124" cy="286" r="6" fill="#3f3f71"/>
+<circle cx="141" cy="286" r="6" fill="#3f3f71"/>
+
+<circle cx="250" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="267" cy="218" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="284" cy="218" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="301" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="250" cy="235" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="267" cy="235" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="284" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="301" cy="235" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="250" cy="252" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="267" cy="252" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="284" cy="252" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="301" cy="252" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="250" cy="269" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="267" cy="269" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="284" cy="269" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="301" cy="269" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="250" cy="286" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="267" cy="286" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="284" cy="286" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="301" cy="286" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+
+<circle cx="470" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="487" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="504" cy="218" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="521" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="470" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="487" cy="235" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="504" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="521" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="470" cy="252" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="487" cy="252" r="6" fill="#3f3f71"/>
+<circle cx="504" cy="252" r="6" fill="#3f3f71"/>
+<circle cx="521" cy="252" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="470" cy="269" r="6" fill="#3f3f71"/>
+<circle cx="487" cy="269" r="6" fill="#3f3f71"/>
+<circle cx="504" cy="269" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="521" cy="269" r="6" fill="#3f3f71"/>
+<circle cx="470" cy="286" r="6" fill="#3f3f71"/>
+<circle cx="487" cy="286" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="504" cy="286" r="6" fill="#3f3f71"/>
+<circle cx="521" cy="286" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+
+<circle cx="630" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="647" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="664" cy="218" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="681" cy="218" r="6" fill="#3f3f71"/>
+<circle cx="630" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="647" cy="235" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="664" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="681" cy="235" r="6" fill="#3f3f71"/>
+<circle cx="630" cy="252" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="647" cy="252" r="6" fill="#3f3f71"/>
+<circle cx="664" cy="252" r="6" fill="#3f3f71"/>
+<circle cx="681" cy="252" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="630" cy="269" r="6" fill="#3f3f71"/>
+<circle cx="647" cy="269" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="664" cy="269" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="681" cy="269" r="6" fill="#3f3f71"/>
+<circle cx="630" cy="286" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="647" cy="286" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+<circle cx="664" cy="286" r="6" fill="#3f3f71"/>
+<circle cx="681" cy="286" r="6" fill="#eef0f5" stroke="#b9bccd" stroke-width="1.6"/>
+
+<!-- vs dividers -->
+<text x="195" y="256" class="vs" text-anchor="middle">vs.</text>
+<text x="575" y="256" class="vs" text-anchor="middle">vs.</text>
+
+<!-- tallies -->
+<text x="115" y="310" class="tally" text-anchor="middle">16 of 20 &#8594; YEA (80%)</text>
+<text x="275" y="310" class="tally" text-anchor="middle">17 of 20 &#8594; NAY (85%)</text>
+<text x="495" y="310" class="tally" text-anchor="middle">13 of 20 &#8594; YEA (65%)</text>
+<text x="655" y="310" class="tally" text-anchor="middle">11 of 20 &#8594; YEA (55%)</text>
+
+<!-- why captions -->
+<text x="195" y="334" class="why-red" text-anchor="middle">Majorities oppose &#8594; party-line vote</text>
+<text x="575" y="334" class="why-navy" text-anchor="middle">Majorities agree &#8594; bipartisan vote</text>
+
+<!-- definition box -->
+<rect x="70" y="362" width="720" height="158" fill="#e0e2ee"/>
+<rect x="70" y="362" width="3" height="158" fill="#9a3324"/>
+<text x="90" y="384" class="defhead">THE DEFINITION</text>
+<text x="90" y="402" class="quote">&#8220;A party-line vote is one on which a majority of Republicans</text>
+<text x="90" y="418" class="quote">vote one way and a majority of Democrats vote another.&#8221;</text>
+<text x="90" y="436" class="quote">&#8220;A bipartisan vote is one in which a majority of Republicans</text>
+<text x="90" y="452" class="quote">and a majority of Democrats vote the same way.&#8221;</text>
+<text x="90" y="470" class="citation">&#8212; Congressional Record (1956), Vol. 102, Pt. 11, p. 15069 &#183; same threshold used by CQ Roll Call since 1953</text>
+<text x="90" y="488" class="plain">Plain-language version: as long as each party&#8217;s majority ends up on opposite sides, individual</text>
+<text x="90" y="504" class="plain">members crossing over doesn&#8217;t change whether the vote counts as party-line.</text>
+
+<!-- stat row -->
+<line x1="430" y1="532" x2="430" y2="574" class="statdivider"/>
+<text x="90" y="558" class="statnum-red">&#8805;50%</text>
+<text x="90" y="576" class="statlabel">share of each party&#8217;s votes needed on each side</text>
+<text x="460" y="558" class="statnum-navy">1953</text>
+<text x="460" y="576" class="statlabel">year CQ&#8217;s party-unity-vote series began</text>
+
+<!-- source footer -->
+<line x1="70" y1="596" x2="790" y2="596" class="hrule"/>
+<text x="70" y="616" class="src">Source: Congressional Record (1956), Vol. 102, Pt. 11, p. 15069; CQ Roll Call, &#8220;Vote Watch Methodology&#8221; (updated 2023).</text>
+<text x="70" y="632" class="src">Illustrative schematic &#8212; not historical vote data. Full sourcing: <a href="sources.md"><tspan class="link">sources.md</tspan></a> &#183; <a href="data.csv"><tspan class="link">data.csv</tspan></a> &#183; The Statecraft Blueprint</text>
+
+<style>
+.masthead{fill:#9a3324;font-size:14px;letter-spacing:2.5px;font-weight:bold;}
+.title{fill:#2b2c41;font-size:26px;font-weight:bold;}
+.subtitle{fill:#8d8f9e;font-size:14px;}
+.subtitle2{fill:#8d8f9e;font-size:12px;font-style:italic;}
+.legend{fill:#5c5e74;font-size:12px;}
+.legendnote{fill:#8d8f9e;font-size:11px;font-style:italic;}
+.panelhead-red{fill:#9a3324;font-size:15px;font-weight:bold;letter-spacing:1px;}
+.panelhead-navy{fill:#3f3f71;font-size:15px;font-weight:bold;letter-spacing:1px;}
+.partylabel{fill:#8d8f9e;font-size:11px;letter-spacing:1px;}
+.vs{fill:#b9bccd;font-size:12px;font-style:italic;}
+.tally{fill:#2b2c41;font-size:12px;font-weight:bold;}
+.why-red{fill:#9a3324;font-size:13px;font-weight:bold;}
+.why-navy{fill:#3f3f71;font-size:13px;font-weight:bold;}
+.defhead{fill:#9a3324;font-size:11px;font-weight:bold;letter-spacing:1.5px;}
+.quote{fill:#2b2c41;font-size:13px;font-style:italic;}
+.citation{fill:#5c5e74;font-size:11px;}
+.plain{fill:#5c5e74;font-size:12.5px;}
+.statdivider{stroke:#d7dae6;stroke-width:1;}
+.statnum-red{fill:#9a3324;font-size:26px;font-weight:bold;}
+.statnum-navy{fill:#3f3f71;font-size:26px;font-weight:bold;}
+.statlabel{fill:#8d8f9e;font-size:11px;}
+.hrule{stroke:#d7dae6;stroke-width:1;}
+.src{fill:#9a9cab;font-size:10px;}
+.link{fill:#3f3f71;text-decoration:underline;}
+a{cursor:pointer;}
+</style>
+</svg>

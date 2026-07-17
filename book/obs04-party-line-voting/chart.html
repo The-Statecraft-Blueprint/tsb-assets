@@ -45,6 +45,25 @@
       position: relative;
       height: 340px;
     }
+    .legend {
+      display: flex;
+      gap: 24px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: #8a8fa8;
+    }
+    .legend-swatch {
+      width: 12px;
+      height: 12px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
     .callouts {
       display: flex;
       margin-top: 24px;
@@ -95,6 +114,11 @@
       <canvas id="chart"></canvas>
     </div>
 
+    <div class="legend">
+      <div class="legend-item"><div class="legend-swatch" style="background:#3d3f7c;"></div>Party-line votes (annual)</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#a63232;"></div>5-year moving average</div>
+    </div>
+
     <div class="callouts">
       <div class="callout">
         <div class="callout-num" style="color:#3d3f7c">27%</div>
@@ -105,7 +129,7 @@
         <div class="callout-label">of all votes in 2025 —<br>highest ever recorded</div>
       </div>
       <div class="callout">
-        <div class="callout-num" style="color:#3d3f7c">74%</div>
+        <div class="callout-num" style="color:#3d3f7c">72%</div>
         <div class="callout-label">avg. member unity<br>score in 1970</div>
       </div>
       <div class="callout">
@@ -117,7 +141,8 @@
     <p class="source">
       Sources: Brookings Institution, Vital Statistics on Congress, Ch. 8, Tables 8-3 &amp; 8-4
       (1969–2022); CQ Roll Call Annual Vote Studies (2023–2025). A party-line vote is one where
-      a majority of Democrats opposed a majority of Republicans.
+      a majority of Democrats opposed a majority of Republicans. No House party-unity-votes figure
+      is available for 2023 (shown as a break in the annual line, bridged by the moving average).
       Full data and methodology: <a href="sources.md">sources.md</a> &nbsp;|&nbsp;
       Raw data: <a href="data.csv">data.csv</a>
     </p>
@@ -130,69 +155,73 @@
       1990,1991,1992,1993,1994,1995,1996,1997,1998,1999,
       2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,
       2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,
-      2020,2021,2022,2025
+      2020,2021,2022,2023,2024,2025
     ];
+    // Raw annual series. null = no source has a House party-unity-votes figure for that year
+    // (2023 — see sources.md). Matches data.csv's house_party_unity_votes_pct column exactly.
     const values = [
       31.1,27.1,37.8,27.1,41.8,29.4,48.4,35.9,42.2,33.2,47.3,
       37.6,37.4,36.4,55.6,47.1,61.0,56.5,63.7,47.0,56.3,
       49.1,55.1,64.5,65.5,61.8,73.2,56.4,50.4,55.5,47.3,
       43.2,40.2,43.3,51.7,47.0,49.0,54.5,62.0,53.3,50.9,
       40.0,75.8,72.8,68.6,72.6,75.1,73.4,76.0,58.6,68.0,
-      69.8,63.2,53.1,85.3
+      69.8,63.2,53.1,null,65.3,85.3
+    ];
+    // 5-year centered moving average of the series above (endpoints use a shortened window;
+    // the 2023 gap is bridged using the surrounding years). Matches data.csv's
+    // house_trend_5yr_centered column exactly -- see sources.md for the methodology note.
+    const trend = [
+      32.0,30.8,33.0,32.6,36.9,36.5,39.5,37.8,41.4,39.2,39.5,
+      38.4,42.9,42.8,47.5,51.3,56.8,55.1,56.9,54.5,54.2,
+      54.4,58.1,59.2,64.0,64.3,61.5,59.5,56.6,50.6,47.3,
+      45.9,45.1,45.1,46.2,49.1,52.8,53.2,53.9,52.1,56.4,
+      58.6,61.6,66.0,73.0,72.5,73.1,71.1,70.2,69.2,67.1,
+      62.5,63.5,62.8,66.7,67.9,75.3
     ];
 
-    // Find index of 1974 for annotation
-    const idx1974 = labels.indexOf(1974);
-
-    // Gradient fill
+    // Gradient fill under the raw series
     const canvas = document.getElementById('chart');
     const ctx = canvas.getContext('2d');
     const grad = ctx.createLinearGradient(0, 0, 0, 340);
     grad.addColorStop(0,   'rgba(61,63,124,0.13)');
     grad.addColorStop(1,   'rgba(61,63,124,0.01)');
 
-    // Manual 1974 annotation plugin
-    const annotation1974 = {
-      id: 'annotation1974',
-      afterDraw(chart) {
-        const { ctx, chartArea, scales } = chart;
-        const x = scales.x.getPixelForValue(idx1974);
-        ctx.save();
-        ctx.setLineDash([4, 3]);
-        ctx.strokeStyle = '#a63232';
-        ctx.lineWidth = 1.5;
-        ctx.beginPath();
-        ctx.moveTo(x, chartArea.top);
-        ctx.lineTo(x, chartArea.bottom);
-        ctx.stroke();
-        ctx.setLineDash([]);
-        ctx.fillStyle = '#a63232';
-        ctx.font = '10px Georgia, serif';
-        ctx.textAlign = 'left';
-        ctx.fillText('1974', x + 3, chartArea.top + 14);
-        ctx.restore();
-      }
-    };
-
     new Chart(ctx, {
       type: 'line',
       data: {
         labels,
-        datasets: [{
-          data: values,
-          borderColor: '#3d3f7c',
-          borderWidth: 2.5,
-          backgroundColor: grad,
-          fill: true,
-          pointRadius: 0,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: '#3d3f7c',
-          pointHoverBorderColor: '#eef0f5',
-          pointHoverBorderWidth: 2,
-          tension: 0.3,
-        }]
+        datasets: [
+          {
+            label: 'Party-line votes (annual)',
+            data: values,
+            borderColor: 'rgba(61,63,124,0.85)',
+            borderWidth: 2,
+            backgroundColor: grad,
+            fill: true,
+            spanGaps: false,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: '#3d3f7c',
+            pointHoverBorderColor: '#eef0f5',
+            pointHoverBorderWidth: 2,
+            tension: 0.3,
+          },
+          {
+            label: '5-year moving average',
+            data: trend,
+            borderColor: '#a63232',
+            borderWidth: 3,
+            backgroundColor: 'transparent',
+            fill: false,
+            pointRadius: 0,
+            pointHoverRadius: 4,
+            pointHoverBackgroundColor: '#a63232',
+            pointHoverBorderColor: '#eef0f5',
+            pointHoverBorderWidth: 2,
+            tension: 0.35,
+          }
+        ]
       },
-      plugins: [annotation1974],
       options: {
         responsive: true,
         interaction: { mode: 'index', intersect: false },
@@ -210,7 +239,14 @@
             padding: 12,
             callbacks: {
               title: (items) => items[0].label,
-              label: (item) => `${item.raw.toFixed(1)}% party-line votes`,
+              label: (item) => {
+                if (item.datasetIndex === 0) {
+                  return item.raw === null
+                    ? `No House party-unity-votes figure for ${item.label}`
+                    : `${item.raw.toFixed(1)}% party-line votes`;
+                }
+                return `${item.raw.toFixed(1)}% (5-yr average)`;
+              },
             }
           },
         },
