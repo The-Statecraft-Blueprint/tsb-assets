@@ -20,8 +20,11 @@
     h2 { color: #2a2c4a; font-size: 20px; font-weight: normal; margin: 0 0 6px; line-height: 1.3; }
     .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 28px; line-height: 1.5; }
     .chart-wrap { position: relative; height: 360px; }
+    .legend { display: flex; gap: 24px; margin-top: 14px; flex-wrap: wrap; }
+    .legend-item { display: flex; align-items: center; gap: 8px; font-size: 11px; color: #8a8fa8; }
+    .legend-swatch { width: 12px; height: 12px; border-radius: 2px; flex-shrink: 0; }
     .callouts { display: flex; margin-top: 24px; border-top: 1px solid #d8dbe6; padding-top: 20px; flex-wrap: wrap; }
-    .callout { flex: 1; min-width: 160px; padding-right: 20px; border-right: 1px solid #d8dbe6; }
+    .callout { flex: 1; min-width: 170px; padding-right: 20px; border-right: 1px solid #d8dbe6; }
     .callout:last-child { border-right: none; }
     .callout + .callout { padding-left: 20px; }
     .callout-num { font-size: 26px; font-weight: bold; line-height: 1; letter-spacing: -0.02em; }
@@ -35,23 +38,30 @@
     <div class="eyebrow">The Statecraft Blueprint</div>
     <h2>The Middle Has Disappeared</h2>
     <p class="subtitle">
-      Percentage of U.S. House members classified as moderate by DW-NOMINATE voting scores,
-      92nd–119th Congress (1971–2025). A "moderate" is defined as a member whose ideology
+      Percentage of U.S. House and Senate members classified as moderate by DW-NOMINATE voting
+      scores, 92nd–119th Congress (1971–2025). A "moderate" is defined as a member whose ideology
       score falls within 0.25 of center — neither strongly liberal nor strongly conservative.
+      Both chambers decline along the same broad trajectory, though the Senate declined later
+      and more gradually before converging with the House in the last decade.
     </p>
 
     <div class="chart-wrap">
       <canvas id="chart"></canvas>
     </div>
 
+    <div class="legend">
+      <div class="legend-item"><div class="legend-swatch" style="background:#3d3f7c;"></div>U.S. House</div>
+      <div class="legend-item"><div class="legend-swatch" style="background:#a63232;"></div>U.S. Senate</div>
+    </div>
+
     <div class="callouts">
       <div class="callout">
-        <div class="callout-num" style="color:#3d3f7c">40%</div>
-        <div class="callout-label">of House members were<br>moderates in 1971</div>
+        <div class="callout-num" style="color:#3d3f7c">40% / 43%</div>
+        <div class="callout-label">of House / Senate members<br>were moderates in 1971</div>
       </div>
       <div class="callout">
-        <div class="callout-num" style="color:#a63232">9%</div>
-        <div class="callout-label">of House members are<br>moderates today (119th Congress,<br>provisional)</div>
+        <div class="callout-num" style="color:#a63232">9% / 9%</div>
+        <div class="callout-label">of House / Senate members are<br>moderates today (119th Congress,<br>provisional) — the two chambers<br>have converged</div>
       </div>
       <div class="callout">
         <div class="callout-num" style="color:#3d3f7c">0</div>
@@ -73,7 +83,7 @@
   </div>
 
   <script>
-    const data = [
+    const houseData = [
       {year:1971,pct:40.1},{year:1973,pct:37.6},{year:1975,pct:35.6},
       {year:1977,pct:36.5},{year:1979,pct:34.6},{year:1981,pct:34.3},
       {year:1983,pct:31.7},{year:1985,pct:30.5},{year:1987,pct:31.3},
@@ -86,8 +96,22 @@
       {year:2025,pct:8.7},
     ];
 
-    const labels = data.map(d => d.year);
-    const values = data.map(d => d.pct);
+    const senateData = [
+      {year:1971,pct:42.6},{year:1973,pct:34.0},{year:1975,pct:32.3},
+      {year:1977,pct:33.0},{year:1979,pct:34.0},{year:1981,pct:34.0},
+      {year:1983,pct:33.7},{year:1985,pct:31.7},{year:1987,pct:30.7},
+      {year:1989,pct:29.4},{year:1991,pct:29.4},{year:1993,pct:27.5},
+      {year:1995,pct:23.3},{year:1997,pct:18.0},{year:1999,pct:21.6},
+      {year:2001,pct:22.0},{year:2003,pct:22.2},{year:2005,pct:19.0},
+      {year:2007,pct:20.8},{year:2009,pct:23.6},{year:2011,pct:20.8},
+      {year:2013,pct:19.4},{year:2015,pct:14.3},{year:2017,pct:15.5},
+      {year:2019,pct:13.0},{year:2021,pct:12.0},{year:2023,pct:11.9},
+      {year:2025,pct:8.9},
+    ];
+
+    const labels = houseData.map(d => d.year);
+    const houseValues = houseData.map(d => d.pct);
+    const senateValues = senateData.map(d => d.pct);
 
     const canvas = document.getElementById('chart');
     const ctx = canvas.getContext('2d');
@@ -100,19 +124,36 @@
       type: 'line',
       data: {
         labels,
-        datasets: [{
-          data: values,
-          borderColor: '#3d3f7c',
-          borderWidth: 2.5,
-          backgroundColor: grad,
-          fill: true,
-          pointRadius: 0,
-          pointHoverRadius: 5,
-          pointHoverBackgroundColor: '#3d3f7c',
-          pointHoverBorderColor: '#eef0f5',
-          pointHoverBorderWidth: 2,
-          tension: 0.3,
-        }]
+        datasets: [
+          {
+            label: 'U.S. House',
+            data: houseValues,
+            borderColor: '#3d3f7c',
+            borderWidth: 2.5,
+            backgroundColor: grad,
+            fill: true,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: '#3d3f7c',
+            pointHoverBorderColor: '#eef0f5',
+            pointHoverBorderWidth: 2,
+            tension: 0.3,
+          },
+          {
+            label: 'U.S. Senate',
+            data: senateValues,
+            borderColor: '#a63232',
+            borderWidth: 2,
+            backgroundColor: 'transparent',
+            fill: false,
+            pointRadius: 0,
+            pointHoverRadius: 5,
+            pointHoverBackgroundColor: '#a63232',
+            pointHoverBorderColor: '#eef0f5',
+            pointHoverBorderWidth: 2,
+            tension: 0.3,
+          }
+        ]
       },
       options: {
         responsive: true,
@@ -131,7 +172,7 @@
             padding: 12,
             callbacks: {
               title: items => `${labels[items[0].dataIndex]}`,
-              label: item => `${item.raw.toFixed(1)}% of House members were moderate`,
+              label: item => `${item.dataset.label}: ${item.raw.toFixed(1)}% moderate`,
             }
           },
         },
