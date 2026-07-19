@@ -38,8 +38,8 @@ The chart is windowed to 1969–2026, consistent with the date range used elsewh
 - **Chart window (1969–2026):** This chart shows a 1969–2026 subset of the full 1936–2026 corpus, matching the date window used across this chapter's other observation charts. The full corpus, including 1936–1968, is available in `annual-structural-weight.csv` and `eo_coding.db` in the source folder for any chart that needs the longer historical sweep.
 - **Mean vs. median:** This chart uses the annual mean structural weight, not the median, as the primary series. The median sits at or near zero for long stretches of the early data — multiple years in the 1969–1989 span have a median of 0.0 even though the mean is well above zero — which makes the median non-representative of the underlying per-order distribution in those years. The mean is shown as the plotted line; both mean and median are retained in `data.csv` for reference.
 - **Aggregation:** Annual mean is a simple unweighted average of individual order scores — not weighted by order significance, word count, or order type. The per-order data in `eo_coding.db` supports recomputing this with alternative weightings if needed.
-- **Count axis (square-root scale):** The left (count) axis uses a square-root scale rather than linear. 2025's count (238) is roughly 2.6–12.5× every other year in this series; on a linear axis, that single value would compress the visible variation among all other years toward the bottom of the chart. The square-root scale preserves 2025 as the visible maximum of the series while keeping the smaller year-to-year differences in the rest of the series legible. The 2025 bar is additionally labeled with its exact value (238) directly on the chart, and exact values for every year are available on hover in `chart.html` and in full in `data.csv`.
-- **2026 (provisional):** 2026 is a partial year — 43 executive orders and a 29.16% mean structural weight as of this data pull (July 2026). It is marked provisional in the chart (muted bar fill, dashed final line segment, open point marker) and labeled "(provisional — partial year)" in the callout row and hover tooltip, consistent with how in-progress years are marked elsewhere in this chapter's charts (e.g. `obs05-moderate-decline`, `obs06-approval-ratings`).
+- **Count axis (square-root scale):** The left (count) axis uses a square-root scale rather than linear. 2025's count (238) is roughly 2.6–12.5× every other year in this series; on a linear axis, that single value would compress the visible variation among all other years toward the bottom of the chart. The square-root scale preserves 2025 as the visible maximum of the series while keeping the smaller year-to-year differences in the rest of the series legible. Exact values for every year are available on hover in `chart.html`, in the callout row (2025's count is called out directly), and in full in `data.csv`.
+- **2026 (provisional):** 2026 is a partial year — 43 executive orders and a 29.16% mean structural weight as of this data pull (July 2026). Both series are marked provisional at 2026 (dashed final line segment, open point marker) and labeled "(provisional — partial year)" in the callout row and hover tooltip, consistent with how in-progress years are marked elsewhere in this chapter's charts (e.g. `obs05-moderate-decline`, `obs06-approval-ratings`).
 - **No reference-line marker.** This chart was built without a 1974 (or any other) reference-line annotation from the outset. Several other charts in this chapter shipped with one and had it removed afterward (see their own sources.md Corrections sections); this chart skips that step.
 
 ---
@@ -54,7 +54,9 @@ The chart is windowed to 1969–2026, consistent with the date range used elsewh
 
 ## Corrections
 
-*(none yet)*
+| Date | Change |
+|------|--------|
+| 2026-07-19 | **Chart style brought in line with the rest of Ch2.** The chart read heavier than every other chart in this chapter, specifically because of the count series' bars. Three changes: (1) converted the executive-order-count series from bars to a thin navy line — same treatment as the raw series in the Party-Line Voting chart (`obs04-party-line-voting`): 2px stroke, faint area fill fading to transparent, tension 0.3. The dual-axis setup and the square-root scale on the count axis are unchanged — 2025 (238) is still roughly 2.6–12.5× every other year in the series, so the sqrt scale is still needed regardless of bar vs. line. (2) Removed the "238" text label that sat directly on the chart at the 2025 peak — it was redundant with the "238 — largest single-year count" callout already in the stat row, and having it in both places was part of what made the chart feel dense. (3) Lightened the subtitle by dropping the now-unneeded "(bars)"/"(line)" chart-type annotations (both series are lines now). The square-root-axis explanation remains where it already lived — the source line only, alongside the Mayer & Price validation note — and was not duplicated into the subtitle. The 2026-provisional treatment (open point marker, dashed connector) now applies to both series, matching each other. |
 
 ---
 
@@ -63,5 +65,6 @@ The chart is windowed to 1969–2026, consistent with the date range used elsewh
 | Date | Change | Author |
 |------|--------|--------|
 | July 2026 | Initial publication | TSB |
+| 2026-07-19 | Chart style brought in line with the rest of Ch2 — count series converted from bars to a thin line, on-chart "238" label removed, subtitle lightened (full detail in Corrections above) | TSB |
 
 *If you believe a data point is incorrect, please open an issue at https://github.com/The-Statecraft-Blueprint/tsb-assets or contact us at statecraftblueprint.org.*
