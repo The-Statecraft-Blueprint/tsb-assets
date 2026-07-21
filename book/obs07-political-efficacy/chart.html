@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Agreement That Officials Don't Care Has Roughly Doubled Since the 1950s — The Statecraft Blueprint</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #eef0f5;
+      font-family: Georgia, 'Times New Roman', serif;
+      display: flex;
+      justify-content: center;
+      padding: 24px 16px;
+      min-height: 100vh;
+    }
+    .wrap { width: 100%; max-width: 820px; background: #eef0f5; padding: 36px 40px 28px; }
+    .eyebrow { font-size: 10px; letter-spacing: 0.18em; color: #a63232; text-transform: uppercase; margin-bottom: 12px; }
+    h2 { color: #2a2c4a; font-size: 21px; font-weight: normal; margin: 0 0 6px; line-height: 1.35; }
+    .subtitle { color: #8a8fa8; font-size: 13px; margin: 0 0 20px; line-height: 1.55; }
+    .context-box {
+      background: #e4e7f0;
+      border-left: 3px solid #3d3f7c;
+      padding: 14px 18px;
+      font-size: 12.5px;
+      color: #2a2c4a;
+      margin-bottom: 24px;
+      line-height: 1.55;
+    }
+    .chart-wrap { position: relative; height: 400px; }
+    .callouts { display: flex; margin-top: 24px; border-top: 1px solid #d8dbe6; padding-top: 20px; flex-wrap: wrap; }
+    .callout { flex: 1; min-width: 140px; padding-right: 20px; border-right: 1px solid #d8dbe6; }
+    .callout:last-child { border-right: none; }
+    .callout + .callout { padding-left: 20px; }
+    .callout-num { font-size: 26px; font-weight: bold; line-height: 1; letter-spacing: -0.02em; }
+    .callout-label { font-size: 11px; color: #8a8fa8; margin-top: 5px; line-height: 1.4; }
+    .source { margin-top: 16px; font-size: 10px; color: #8a8fa8; line-height: 1.6; border-top: 1px solid #d8dbe6; padding-top: 12px; }
+    .source a { color: #3d3f7c; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="eyebrow">The Statecraft Blueprint</div>
+    <h2>Agreement That Officials Don't Care Has Roughly Doubled Since the 1950s</h2>
+    <p class="subtitle">
+      ANES has asked the same question in most of its election-year studies since 1952 — "public officials don't care much what people like me think." Agreement ran as low as a quarter of Americans around 1960; it's run above two-thirds in every reading since 2020.
+    </p>
+
+    <div class="context-box">
+      <strong>Reading note:</strong> Weighted using ANES's own cross-year weight (VCF0009z); "agree strongly"/"agree somewhat" are combined into one Agree category exactly as ANES harmonizes it for every year shown. "Neither" (1988+) and don't-know/refused responses are excluded from the denominator. Not every ANES study year fielded this item — dots mark the years that did.
+    </div>
+
+    <div class="chart-wrap">
+      <canvas id="chart"></canvas>
+    </div>
+
+    <div class="callouts">
+      <div class="callout">
+        <div class="callout-num" style="color:#3d3f7c">25%</div>
+        <div class="callout-label">1960 — the lowest reading on record</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#3d3f7c">31.5%</div>
+        <div class="callout-label">2002 — a one-year drop, the post-9/11 rally effect</div>
+      </div>
+      <div class="callout">
+        <div class="callout-num" style="color:#a63232">71.0%</div>
+        <div class="callout-label">2024 — the highest reading on record</div>
+      </div>
+    </div>
+
+    <p class="source">
+      Source: ANES Time Series Cumulative Data File (1948-2024), variable VCF0609, "public officials don't care much what people like me think," weighted with VCF0009z. Computed directly from the ANES cumulative microdata (electionstudies.org).
+      Full data and methodology: <a href="sources.md">sources.md</a> &nbsp;|&nbsp;
+      Raw data: <a href="data.csv">data.csv</a>
+    </p>
+  </div>
+
+  <script>
+    // Every ANES study year that fielded VCF0609, 1952-2024. Values = %
+    // agreeing "public officials don't care much what people like me
+    // think," weighted (VCF0009z), agree strongly + agree somewhat
+    // collapsed into Agree exactly as ANES harmonizes the item across years.
+    const data = [
+      { x: 1952, y: 35.8, note: null },
+      { x: 1956, y: 27.0, note: null },
+      { x: 1960, y: 25.0, note: "Lowest reading in the series" },
+      { x: 1964, y: 37.0, note: null },
+      { x: 1966, y: 37.8, note: null },
+      { x: 1968, y: 43.7, note: null },
+      { x: 1970, y: 48.7, note: null },
+      { x: 1972, y: 50.1, note: null },
+      { x: 1974, y: 52.2, note: null },
+      { x: 1976, y: 53.7, note: null },
+      { x: 1978, y: 53.0, note: null },
+      { x: 1980, y: 54.5, note: null },
+      { x: 1982, y: 48.6, note: null },
+      { x: 1984, y: 42.6, note: "A local dip, not a peak, in the primary data" },
+      { x: 1986, y: 55.0, note: null },
+      { x: 1988, y: 51.0, note: null },
+      { x: 1990, y: 64.0, note: null },
+      { x: 1992, y: 52.5, note: null },
+      { x: 1994, y: 66.2, note: null },
+      { x: 1996, y: 61.4, note: null },
+      { x: 1998, y: 61.7, note: null },
+      { x: 2000, y: 56.7, note: null },
+      { x: 2002, y: 31.5, note: "Post-9/11 rally-round-the-flag effect" },
+      { x: 2004, y: 50.3, note: null },
+      { x: 2008, y: 60.2, note: null },
+      { x: 2012, y: 61.3, note: null },
+      { x: 2016, y: 59.1, note: null },
+      { x: 2020, y: 68.2, note: null },
+      { x: 2024, y: 71.0, note: "Highest reading in the series" },
+    ];
+
+    const canvas = document.getElementById('chart');
+    const ctx = canvas.getContext('2d');
+
+    const grad = ctx.createLinearGradient(0, 0, 0, 400);
+    grad.addColorStop(0, 'rgba(61,63,124,0.12)');
+    grad.addColorStop(1, 'rgba(61,63,124,0.01)');
+
+    // Reference line: 50% marker -- the minority/majority threshold.
+    const referenceLines = {
+      id: 'referenceLines',
+      afterDraw(chart) {
+        const { ctx, chartArea, scales } = chart;
+        const yBaseline = 50;
+        const yPix = scales.y.getPixelForValue(yBaseline);
+        ctx.save();
+        ctx.setLineDash([6, 4]);
+        ctx.strokeStyle = '#b8bdd4';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(chartArea.left, yPix);
+        ctx.lineTo(chartArea.right, yPix);
+        ctx.stroke();
+        ctx.setLineDash([]);
+        ctx.fillStyle = '#b8bdd4';
+        ctx.font = '10px Georgia, serif';
+        ctx.textAlign = 'right';
+        ctx.fillText('50% — majority line', chartArea.right - 4, yPix - 5);
+        ctx.restore();
+      }
+    };
+
+    new Chart(ctx, {
+      type: 'line',
+      data: {
+        datasets: [{
+          data: data.map(d => ({ x: d.x, y: d.y })),
+          borderColor: '#3d3f7c',
+          borderWidth: 2,
+          backgroundColor: grad,
+          fill: true,
+          pointRadius: 3,
+          pointBackgroundColor: d => (data[d.dataIndex] && data[d.dataIndex].note) ? '#a63232' : '#3d3f7c',
+          pointBorderColor: '#eef0f5',
+          pointBorderWidth: 1,
+          pointHoverRadius: 6,
+          pointHoverBackgroundColor: '#a63232',
+          pointHoverBorderColor: '#eef0f5',
+          pointHoverBorderWidth: 2,
+          tension: 0.15,
+        }]
+      },
+      plugins: [referenceLines],
+      options: {
+        responsive: true,
+        interaction: { mode: 'nearest', intersect: true },
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            backgroundColor: '#ffffff',
+            borderColor: '#d8dbe6',
+            borderWidth: 1,
+            titleColor: '#8a8fa8',
+            bodyColor: '#2a2c4a',
+            titleFont: { family: 'Georgia, serif', size: 11 },
+            bodyFont: { family: 'Georgia, serif', size: 14, weight: 'bold' },
+            padding: 12,
+            callbacks: {
+              title: items => `${data[items[0].dataIndex].x}`,
+              label: item => {
+                const d = data[item.dataIndex];
+                const note = d.note ? ` — ${d.note}` : '';
+                return `${d.y}% agree${note}`;
+              }
+            }
+          },
+        },
+        scales: {
+          x: {
+            type: 'linear',
+            min: 1950,
+            max: 2026,
+            grid: { display: false },
+            border: { color: '#d8dbe6' },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 11 },
+              stepSize: 10,
+              callback: function (val) {
+                return Number.isInteger(val / 10) ? val : '';
+              }
+            }
+          },
+          y: {
+            min: 0,
+            max: 80,
+            grid: { color: '#d8dbe6' },
+            border: { display: false },
+            ticks: {
+              color: '#8a8fa8',
+              font: { family: 'Georgia, serif', size: 11 },
+              stepSize: 20,
+              callback: v => `${v}%`,
+            }
+          }
+        }
+      }
+    });
+  </script>
+</body>
+</html>
